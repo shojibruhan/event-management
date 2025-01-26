@@ -1,6 +1,10 @@
-from tasks.views import show_task
+from tasks.views import show_task, events_dashboard, managerdashboard, user_dashboard, dashboard
 from django.urls import path
 
 urlpatterns = [
-    path("show-task/", show_task)
+    path("show-task/", show_task),
+    path("events-dashboard/", events_dashboard, name='events-dashboard'),
+    path("manager-dashboard/", managerdashboard, name='manager-dashboard'),
+    path("user-dashboard/", user_dashboard, name="user-dashboard"),
+    path("dashboard/", dashboard)
 ]
