@@ -1,18 +1,62 @@
 from django import forms
 from tasks.models import Event, EventDetails, Participant, Category
 
-class EventForm(forms.Form):
-    title= forms.CharField()
-    description= forms.CharField(widget= forms.Textarea, label= "Event Description")
-    due_date= forms.DateTimeField(widget= forms.SelectDateWidget, label="Due Date")
-    participant= forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
 
-class EventModelForm(forms.ModelForm):
+class StyleForMixin:
+
+    default_classes= "border border-indigo-800 px-2 py-3 mb-5 rounded-md bg-gray-200 w-full shadow-sm focus:border-rose-500 focus:ring-rose-500"
+    
+
+    def styleWidget(self):
+        for field_name, field in self.fields.items():
+            placeholder_text= f"Enter {field.label.lower()}"
+            if isinstance(field.widget, forms.TextInput):
+                field.widget.attrs.update({
+                    'class': self.default_classes,
+                    'placeholder': placeholder_text
+                })
+            elif isinstance(field.widget, forms.CheckboxSelectMultiple):
+                field.widget.attrs.update({
+                    'class': 'space-y-2'
+                    
+                })
+            elif isinstance(field.widget, forms.Textarea):
+                field.widget.attrs.update({
+                    'class': self.default_classes,
+                    'placeholder': placeholder_text
+                })
+            
+            elif isinstance(field.widget, forms.SelectDateWidget):
+                field.widget.attrs.update({
+                    'class': "border-2 border-gray-300 rounded-lg shadow-sm focus:border-rose-500 focus:ring-rose-500 p-2 mb-5"
+
+                })
+           
+            elif isinstance(field.widget, forms.Select):
+                field.widget.attrs.update({
+                    'class': 'border-3 border-blue-500 rounded-lg space-y-2',
+                    
+                })
+           
+        
+
+
+class EventModelForm(StyleForMixin, forms.ModelForm):
     class Meta:
         model= Event
         # fields= '__all__'
-        fields= ['name', 'description', 'schedule', 'location']
+        fields= ['name', 'category',  'description', 'schedule', 'location', 'participant']
+
+        widgets= {
+            'category': forms.Select(),
+            'participant': forms.CheckboxSelectMultiple,
+            'schedule': forms.SelectDateWidget
+        }
+    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.styleWidget()
+
+      

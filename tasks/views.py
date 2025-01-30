@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from tasks.forms import EventForm, EventModelForm
+from tasks.forms import EventModelForm
 from tasks.models import Participant
 
 def home(request):
@@ -21,8 +21,8 @@ def user_dashboard(request):
 def dashboard(request):
     return render(request, "dashboard/dashboard.html")
 
-def create_task(request):
-    participant= Participant.objects.all()
+def create_events(request):
+   
     form= EventModelForm()
 
     if request.method == 'POST':
@@ -30,9 +30,14 @@ def create_task(request):
         if form.is_valid():
             form.save()
 
-            return HttpResponse("Event added successfully!")
-    context= {
-        'form': form
-    }
+            context= {
+                'form': form,
+                "message": "Event added succussfully"
+            }
+            
+
+            return render(request, 'dashboard/event-form.html', context)
+    context= { 'form': form }
+
 
     return render(request, 'dashboard/event-form.html', context)
