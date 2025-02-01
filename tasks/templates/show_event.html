@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+</head>
+<body>
+    <div>
+        <ol>
+            {% for event in events %}
+                <li>{{event.name}} </li>
+                <p>{{ event.tot_part }}</p>
+                
+                 
+            {% endfor %}
+        </ol>
+    </div> 
+    <div>
+        {% comment %} {{ aggr.tot_part }} {% endcomment %}
+    </div>
+</body>
+</html>
