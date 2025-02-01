@@ -15,7 +15,33 @@ def events_dashboard(request):
     return render(request, "events.html")
 
 def managerdashboard(request):
-    return render(request, 'dashboard/manager-dashboard.html')
+    type= request.GET.get('type', "upcoming_events")
+    print(type)
+    base_query= Event.objects.select_related('details').prefetch_related('participant')
+    if type == "upcoming_events":
+        events= base_query.filter(status= "U")
+    elif type == "past_events":
+        events= base_query.filter(status= "P")
+    elif type == "all":
+        events= base_query.all()
+    
+    counts= Event.objects.aggregate(
+        total= Count('id'),
+        upcoming_events= Count('id', filter= Q(status= "U")),
+        past_events= Count('id', filter= Q(status= "P"))
+       
+    )
+   
+    total_participant= Participant.objects.all().count()
+
+    context= {
+        "events": events,
+        "counts": counts,
+        "total_participant": total_participant
+    }
+
+
+    return render(request, 'dashboard/manager-dashboard.html', context)
 
 def user_dashboard(request):
     return render(request, "dashboard/user-dashboard.html")
@@ -66,8 +92,10 @@ def view_events(request):
                 # Aggregation
     
     # total_person= Participant.objects.aggregate(tot_part= Count("id"))
-    events= Category.objects.annotate(tot_part= Count("event"))
+    # events= Category.objects.annotate(tot_part= Count("event"))
+    # events= Event.objects.prefetch_related("participant").count()
+    participents= Participant.objects.all()
     
 
-    return render(request , "show_event.html", {"events": events})
+    return render(request , "show_event.html", {"participents": participents})
 

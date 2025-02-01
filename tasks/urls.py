@@ -8,5 +8,5 @@ urlpatterns = [
     path("user-dashboard/", user_dashboard, name="user-dashboard"),
     path("dashboard/", dashboard),
     path("create-events/", create_events),
-    path("view-events/", view_events)
+    path("view-participent/", view_events, name="view-participent")
 ]
