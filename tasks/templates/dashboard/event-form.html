@@ -10,20 +10,26 @@
 <body>
   <div class= "w-1/2 mx-auto mt-8">
     <div >
-      {% if message %}
-        <p class= "bg-green-500 px-3 py-2 text-white mb-5">{{ message }}</p>
+      {% if messages %}
+        {% for message in messages %}
+          <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %} bg-rose-600 {% endif %} ">{{ message }}</p>
+        {% endfor %}
       {% endif %}
     </div>
-   <div>
-    <form method="POST">
+   
+    <div>
+      <form method="POST">
       
-  
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type='Submit' class= "bg-indigo-700 px-3 py-2 rounded-lg text-white">Submit</button>
-  
-    </form>
+        {% csrf_token %}
+        {{ event_form }}
+        {{ event_details_form }}
+        <button type='Submit' class= "bg-indigo-700 px-3 py-2 rounded-lg text-white">Submit</button>
+    
+      </form>
    </div>
+  <div class="mt-10">
+    <a href=" {% url "manager-dashboard" %} " class="px-3 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-lg mb-10"> Back</a>
+  </div>
   </div>
 </body>
 </html>

@@ -1,22 +1,27 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from tasks.forms import EventModelForm
+from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipentModelForm
 from tasks.models import Participant, Category, Event, EventDetails
 from datetime import date
 from django.db.models import Q, Max, Min, Avg, Count
+from django.contrib import messages
 
 def home(request):
-    return render(request, 'home.html')
+    events= Event.objects.all()
+    return render(request, 'home.html', {"events": events})
 
-def show_task(request):
-    return HttpResponse("<h1>This is show task page</h1>")
+def navbar(request):
+
+    return render(request, "dashboard/navbar.html")
+
+
 
 def events_dashboard(request):
     return render(request, "events.html")
 
 def managerdashboard(request):
     type= request.GET.get('type', "upcoming_events")
-    print(type)
+    # print(type)
     base_query= Event.objects.select_related('details').prefetch_related('participant')
     if type == "upcoming_events":
         events= base_query.filter(status= "U")
@@ -51,21 +56,53 @@ def dashboard(request):
 
 def create_events(request):
    
-    form= EventModelForm()
+    event_form= EventModelForm()
+    event_details_form= EventDetailsModelForm()
+
 
     if request.method == 'POST':
-        form= EventModelForm(request.POST)
-        if form.is_valid():
-            form.save()
+        
+        event_form= EventModelForm(request.POST)
+        event_details_form= EventDetailsModelForm(request.POST)
+        if event_form.is_valid() and event_details_form.is_valid():
+            event= event_form.save()
+            event_details= event_details_form.save(commit=False)
+            event_details.events= event
+            event_details.save()
 
-            context= {
-                'form': form,
-                "message": "Event added succussfully"
-            }
             
+            messages.success(request, "Events Created Successfully !!!")
 
-            return render(request, 'dashboard/event-form.html', context)
-    context= { 'form': form }
+            return redirect("create-events")
+    context= { 'event_form': event_form, "event_details_form": event_details_form }
+
+
+    return render(request, 'dashboard/event-form.html', context)
+
+def update_event(request, id):
+    
+    event= Event.objects.get(id= id)
+    event_form= EventModelForm(instance= event)
+    if event.details:
+        event_details_form= EventDetailsModelForm(instance= event.details)
+
+
+    if request.method == 'POST':
+        
+        event_form= EventModelForm(request.POST, instance= event)
+        event_details_form= EventDetailsModelForm(request.POST, instance= event.details)
+
+        if event_form.is_valid() and event_details_form.is_valid():
+            event_form.save()
+            event_details= event_details_form.save(commit=False)
+            event_details.event= event
+            event_details_form.save()
+
+            
+            messages.success(request, "Events Updated Successfully !!!")
+
+            return redirect("update-events", id)
+    context= { 'event_form': event_form, "event_details_form": event_details_form }
 
 
     return render(request, 'dashboard/event-form.html', context)
@@ -99,3 +136,24 @@ def view_events(request):
 
     return render(request , "show_event.html", {"participents": participents})
 
+def create_participent(request):
+
+    participant_form= ParticipentModelForm()
+
+    return render(request, "participent-form.html", {"participant_form": participant_form})
+
+
+
+    
+
+def delete_event(request, id):
+    if request.method == "POST":
+        event= Event.objects.get(id= id)
+        event.delete()
+
+        messages.success(request, "Event Deleted Successfully !!!")
+        return redirect("manager-dashboard")
+
+    else:
+        messages.error(request, "Something Went Wrong")
+        return redirect("manager-dashboard")
