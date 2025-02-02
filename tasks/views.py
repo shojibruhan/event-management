@@ -10,9 +10,7 @@ def home(request):
     events= Event.objects.all()
     return render(request, 'home.html', {"events": events})
 
-def navbar(request):
 
-    return render(request, "dashboard/navbar.html")
 
 
 

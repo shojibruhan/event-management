@@ -9,11 +9,25 @@
 </head>
 <body>
     <div>
-        <nav class="flex justify-around">
-            <div class="logo mt-5"><h5>LOGO</h5></div>
-
-        </nav>
-        
+        <div>
+            <nav>
+                <ul class="flex py-6 gap gap-10">
+                    <li>
+                         <a href="" class="ml-[5rem] pb-2 text-sky-600 border-b-2 border-indigo-900 font-bold" >HOME</a>
+                    </li>
+                    <li>
+                         <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >DASHBOARD</a>
+                    </li>
+                    <li>
+                         <a href="" class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >EVENTS</a>
+                    </li>
+                    <li>
+                         <a href=" {% url "create-events" %} " class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >HOST</a>
+                    </li>
+                </ul>
+            </nav>
+            
+        </div>
     </div>
 </body>
 </html>
