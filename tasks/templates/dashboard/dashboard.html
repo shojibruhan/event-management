@@ -140,7 +140,13 @@
                 <div class="flex gap-5 justify-end">
                     <div class="bg-white w-100 h-9 rounded-lg mb-5 p-1"><input type="text" placeholder="Search by name"></div> 
                     <div><button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
-                </div>
+                </div> 
+                 <div class="flex gap-5 justify-end">
+                    <form method="GET" action="{% url 'manager-dashboard' %}">
+                        <input type="text" name="q" value="{{ query }}" placeholder="Search events..." class= "bg-white w-80 h-9 rounded-lg mb-1 p-1">
+                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
+                    </form>
+                </div> 
                   
                 {% comment %} message {% endcomment %}
                 <div >

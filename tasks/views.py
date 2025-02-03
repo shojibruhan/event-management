@@ -20,6 +20,7 @@ def events_dashboard(request):
 def managerdashboard(request):
     type= request.GET.get('type', "upcoming_events")
     # print(type)
+    
     base_query= Event.objects.select_related('details').prefetch_related('participant')
     if type == "upcoming_events":
         events= base_query.filter(status= "U")
@@ -27,7 +28,10 @@ def managerdashboard(request):
         events= base_query.filter(status= "P")
     elif type == "all":
         events= base_query.all()
-    
+
+    query= request.GET.get('q', " ")
+    # if query:
+    #     search= base_query.filter(name__icontains = query)
     counts= Event.objects.aggregate(
         total= Count('id'),
         upcoming_events= Count('id', filter= Q(status= "U")),
@@ -105,7 +109,7 @@ def update_event(request, id):
 
     return render(request, 'dashboard/event-form.html', context)
 
-def view_events(request):
+# def view_events(request):
     # events= Event.objects.all()
     # events= Event.objects.filter(status= "U")
     # events= Event.objects.filter(schedule= date.today())
@@ -129,10 +133,10 @@ def view_events(request):
     # total_person= Participant.objects.aggregate(tot_part= Count("id"))
     # events= Category.objects.annotate(tot_part= Count("event"))
     # events= Event.objects.prefetch_related("participant").count()
-    participents= Participant.objects.all()
+    # participents= Participant.objects.all()
     
 
-    return render(request , "show_event.html", {"participents": participents})
+    # return render(request , "show_event.html", {"participents": participents})
 
 def create_participent(request):
 
@@ -155,3 +159,20 @@ def delete_event(request, id):
     else:
         messages.error(request, "Something Went Wrong")
         return redirect("manager-dashboard")
+    
+
+
+def search_event(request):
+    if request.method == "POST":
+        searched= request.POST['searched']
+        
+        events= Event.objects.filter(name__icontains= searched)
+        
+        context= {
+            "events": events,
+            
+        }
+        return render(request, "events.html", context)
+    else:
+        
+        return render(request, "events.html", {})

@@ -8,25 +8,27 @@
     <title>PARTICIPENT</title>
 </head>
 <body  class="bg-sky-300  text-sm text-blue-500 mb-10 px-5">
-    <div class= "mb-8">
+    <div class= "mb-8 ">
                     
-            <div class="grid grid-cols-2 w-1/2 p-4 text-indigo-500 font-semibold">
-                <div class="underline">NAME</div>
-                <div class="underline">EMAIL</div>
+            <div class="flex justify-start gap-96  w-full p-4 text-indigo-500 font-semibold border-b-8">
+                <div class="underline text-2xl">NAME</div>
+                <div class="underline text-2xl">EMAIL</div>
                 
             </div>
         {% for participent in participents %}
-         <ol>
-           <div class="grid grid-cols-2 w-1/2 p-4 text-indigo-500 font-semibold">
-            <div class= "px-0"> {{ participent.name }}</div>
-            <div class= "px-10">  {{ participent.email }}</div>
+         <ol class="border-b-4 border-x-8">
+           <div class="flex justify-start gap-96 w-full p-4 text-indigo-500 font-semibold mx-auto">
+            <div class= ""> {{ participent.name }}</div>
+            <div class= "">  {{ participent.email }}</div>
            </div>
          </ol>
         {% endfor %}
         
 
         
-        <a href="{% url 'manager-dashboard' %}" class="btn btn-primary px-3 py-2 bg-slate-800 text-white rounded-md mt-7">Back</a>
+        <div class="mt-10" >
+            <a href="{% url 'manager-dashboard' %}" class="btn btn-primary px-6 py-4 bg-slate-800 text-white rounded-md mt-7 text-lg">Back</a>
+        </div>
 
 
     </div>

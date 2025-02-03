@@ -8,26 +8,31 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Nav Bar -->
     <div>
         <div>
             <nav>
                 <ul class="flex py-6 gap gap-10">
                     <li>
-                         <a href="" class="ml-[5rem] pb-2 text-sky-600 border-b-2 border-indigo-900 font-bold" >HOME</a>
+                         <a href=" {% url "home" %} " class="ml-[5rem] pb-2 text-sky-400 border-b-2 border-white font-bold text-xl" >HOME</a>
                     </li>
                     <li>
-                         <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >DASHBOARD</a>
+                         <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >DASHBOARD</a>
                     </li>
                     <li>
-                         <a href="" class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >EVENTS</a>
+                         <a href="" class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >EVENTS</a>
                     </li>
                     <li>
-                         <a href=" {% url "create-events" %} " class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >HOST</a>
+                         <a href=" {% url "create-events" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >HOST</a>
                     </li>
                 </ul>
             </nav>
             
         </div>
+    </div>
+
+    <div>
+        <form action=""></form>
     </div>
 </body>
 </html>
