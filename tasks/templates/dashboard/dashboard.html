@@ -11,8 +11,8 @@
 
 </head>
 
-<body>
-    <div class="bg-sky-950 w-full h-auto pb-10">
+<body class="bg-sky-950">
+    <div class="w-full h-96 pb-10">
        <main class="max-w-[1400px] mx-auto p-10">
         <div >
             <!-- Nav Bar -->
@@ -138,17 +138,14 @@
                 </div>
                  
                 <div class="flex gap-5 justify-end">
-                    <div class="bg-white w-100 h-9 rounded-lg mb-5 p-1"><input type="text" placeholder="Search by name"></div> 
+                    <div class="bg-white w-100 h-9 rounded-lg mb-5 p-1">
+                        <form action=" {% url "searched-result" %} " method="POST">
+                            {% csrf_token %}
+                        <input type="search" placeholder="Search by name" name="searched">
+                    </div> 
                     <div><button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
                 </div> 
-                 <div class="flex gap-5 justify-end">
-                    <form method="GET" action="{% url 'manager-dashboard' %}">
-                        <input type="text" name="q" value="{{ query }}" placeholder="Search events..." class= "bg-white w-80 h-9 rounded-lg mb-1 p-1">
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
-                    </form>
-                </div> 
-                  
-                {% comment %} message {% endcomment %}
+                 
                 <div >
                     {% if messages %}
                       {% for message in messages %}

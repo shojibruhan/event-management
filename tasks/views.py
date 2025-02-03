@@ -109,7 +109,7 @@ def update_event(request, id):
 
     return render(request, 'dashboard/event-form.html', context)
 
-# def view_events(request):
+def view_events(request):
     # events= Event.objects.all()
     # events= Event.objects.filter(status= "U")
     # events= Event.objects.filter(schedule= date.today())
@@ -133,16 +133,12 @@ def update_event(request, id):
     # total_person= Participant.objects.aggregate(tot_part= Count("id"))
     # events= Category.objects.annotate(tot_part= Count("event"))
     # events= Event.objects.prefetch_related("participant").count()
-    # participents= Participant.objects.all()
+    participents= Participant.objects.all()
     
 
-    # return render(request , "show_event.html", {"participents": participents})
+    return render(request , "show_event.html", {"participents": participents})
 
-def create_participent(request):
 
-    participant_form= ParticipentModelForm()
-
-    return render(request, "participent-form.html", {"participant_form": participant_form})
 
 
 
@@ -172,7 +168,7 @@ def search_event(request):
             "events": events,
             
         }
-        return render(request, "events.html", context)
+        return render(request, "searched-result.html", context)
     else:
         
-        return render(request, "events.html", {})
+        return render(request, "searched-result.html", {})
