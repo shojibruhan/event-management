@@ -175,4 +175,32 @@ def search_event(request):
     
 
 def navbar(request):
-    return render(request, "dashboard/navbar.html")
+    type= request.GET.get('type', "upcoming_events")
+    # print(type)
+    
+    base_query= Event.objects.select_related('details').prefetch_related('participant')
+    if type == "upcoming_events":
+        events= base_query.filter(status= "U")
+    elif type == "past_events":
+        events= base_query.filter(status= "P")
+    elif type == "all":
+        events= base_query.all()
+
+    query= request.GET.get('q', " ")
+    # if query:
+    #     search= base_query.filter(name__icontains = query)
+    counts= Event.objects.aggregate(
+        total= Count('id'),
+        upcoming_events= Count('id', filter= Q(status= "U")),
+        past_events= Count('id', filter= Q(status= "P"))
+       
+    )
+   
+    total_participant= Participant.objects.all().count()
+
+    context= {
+        "events": events,
+        "counts": counts,
+        "total_participant": total_participant
+    }
+    return render(request, "dashboard/navbar.html", context)

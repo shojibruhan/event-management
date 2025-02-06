@@ -38,12 +38,12 @@
             </div>
            
                 <!-- stats grid -->
-                {% comment %} <div class="my-10 grid sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 sm:space-y-4 md:space-y-2 mb-8 sm:mb-12 md:mb-24 lg:mb-8  sm:p-2 md:p-4 lg:p-8 gap-5"> {% endcomment %}
-                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:space-y-3 md:space-y-5 mt-20 mb-20">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-3 lg:gap-5 sm:space-y-3 md:space-y-5 mt-20 mb-20 ">
                     <!-- Card-1 participent-->
                      
                     <a href="{% url "view-participent" %}?type=total_participant">
-                    <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
+                    <div class="bg-sky-300 rounded-lg p-6 mt-5 shadow-lg">
                         <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL PARTICIPENT</h3>
                         <div class="flex justify-between ">
                             <div>
@@ -136,8 +136,9 @@
                     </a>
                 </div>
                  
+                <!-- Search Bar-->
                 <div class="flex gap-5 justify-end">
-                    <div class="bg-white w-100 h-9 rounded-lg mb-5 p-1">
+                    <div class="bg-white w-100 sm:w-1/2 h-9 rounded-lg mb-5 p-1">
                         <form action=" {% url "searched-result" %} " method="POST">
                             {% csrf_token %}
                         <input type="search" placeholder="Search by name" name="searched">
@@ -156,7 +157,7 @@
                  <!-- Events title -->
                 <div class="bg-sky-300 rounded-lg  shadow-lg  text-sm text-blue-500 mb-10 px-5">
                     
-                    <div class="grid grid-cols-4 p-4 text-indigo-500 font-semibold">
+                    <div class="sm:hidden md:grid md:grid-rows-4 md:grid-cols-4 md:p-4 md:mb-0 md:text-indigo-500 md:font-semibold ">
                         <div>EVENT</div>
                         <div>CATEGORY</div>
                         <div>REGISTERD</div>
@@ -164,30 +165,28 @@
                     </div>
                      <!-- Event item --> 
                     {% for event in events %}
-                        <div>
-                            <div class="border-b border-indigo-800 mb-4"></div>
+                    <div class="border-b border-indigo-800 mb-2"></div>
+                    <div class="grid px-1 sm:grid-rows-2 md:grid-cols-4 lg:grid-cols-5 sm:space-y-4 md:space-y-2">
+                        <div class="text-xl font-semibold sm:row-span-1 sm:mx-auto lg:col-span-2"> {{event.name}} </div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 sm:text-white sm:text-lg sm:shadow-lg "><span class="font-semibold underline text-white md:hidden ">Category:</span> {{event.details.get_types_display }}</div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 lg:bg-none sm:text-white md:text-blue-500 lg:text-blue-500 sm:text-lg sm:shadow-lg md:shadow-none "><span class="font-semibold underline md:hidden">Participent:</span> {{event.participant.all.count}} </div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 md:shadow-none sm:text-white md:text-blue-500 sm:text-lg sm:shadow-lg"><span class="font-semibold underline md:hidden">Date:</span> {{event.schedule}} </div>
+                       
+                    </div> 
+                    {% comment %} update button {% endcomment %}
+                    <div class="flex justify-center gap-5 mt-5 px-3 pb-7 sm:mt-10">
+                            
+                        <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
+                        <form action=" {% url "delete-events" event.id %} " method= "POST">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
+                        </form>
                         
-                            <div class="grid grid-cols-4 p-2 font-semibold text-lg">
-                                <div>{{ event.name }}</div>
-                                <div> 
-                                    <span class="px-3 py-1 rounded-full w-30 bg-sky-600 text-white">{{ event.details.get_types_display }}
-                                    </span>
-                                    </div>
-                                <div> {{ event.participant.all.count }} </div>
-                                <div> {{ event.schedule }} </div>
-                            </div>
-                            <div class="flex justify-center gap-5 mt-5 px-3 pb-7">
-                                {% comment %} <button href=" {% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Edit</button> {% endcomment %}
-                                <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
-                                <form action=" {% url "delete-events" event.id %} " method= "POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                                </form>
-                            </div>
-                        </div>
+                    </div> 
+                
                     
                     {% endfor %}
-                   
+                </div> 
 
 
     

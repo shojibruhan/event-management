@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- Nav Bar -->
-    {% comment %} <div>
+     <div>
         <div>
             <nav>
                 <ul class="flex py-6 gap gap-10">
@@ -29,107 +29,61 @@
             </nav>
             
         </div>
-    </div> {% endcomment %}
-
-    <div>
-        {% comment %} <div class="my-10 grid sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 sm:space-y-4 md:space-y-2 mb-8 sm:mb-12 md:mb-24 lg:mb-8  sm:p-2 md:p-4 lg:p-8 gap-5"> {% endcomment %}
-
-            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:space-y-3 md:space-y-5">
-            <!-- Card-1 participent-->
-             
-            <a href="{% url "view-participent" %}?type=total_participant">
-            <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL PARTICIPENT</h3>
-                <div class="flex justify-between ">
-                    <div>
-                        <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ total_participant}} </p>
-                        <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                    </div>
-                    <div class="bg-green-300 p-2 rounded-full w-10 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
-                            stroke="currentColor" 
-                            aria-hidden="true" 
-                            data-slot="icon" 
-                            class="w-6 h-6 text-blue-700">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            </a>
-         
-            <!-- Card- 2- TOTAL EVENTS -->
-            <a href="{% url "manager-dashboard" %}?type=all">
-            <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
-                <div class="flex justify-between ">
-                    <div>
-                        <p class="text-3xl font-semibold mb-1 text-indigo-950"> {{ counts.total}} </p>
-                        <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                    </div>
-                    <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
-                            stroke="currentColor" 
-                            aria-hidden="true" 
-                            data-slot="icon" 
-                            class="w-6 h-6 text-blue-700">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            </a>
-            <!-- Card-3 UPCOMING EVENTS -->
-            <a href="{% url "manager-dashboard" %}">
-            <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                <h3 class="text-sm font-semibold text-indigo-950 mb-5">UPCOMING EVENTS</h3>
-                <div class="flex justify-between ">
-                    <div>
-                        <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ counts.upcoming_events }}</p>
-                        <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                    </div>
-                    <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
-                            stroke="currentColor" 
-                            aria-hidden="true" 
-                            data-slot="icon" 
-                            class="w-6 h-6 text-blue-700">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            </a>
-            <!-- Card-4 PAST EVENTS-->
-            <a href="{% url "manager-dashboard" %}?type=past_events">
-            <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                <h3 class="text-sm font-semibold text-indigo-950 mb-5">PAST EVENTS</h3>
-                <div class="flex justify-between ">
-                    <div>
-                        <p class="text-3xl font-semibold mb-1 text-indigo-950">{{counts.past_events }}</p>
-                        <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                    </div>
-                    <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
-                            stroke="currentColor" 
-                            aria-hidden="true" 
-                            data-slot="icon" 
-                            class="w-6 h-6 text-blue-700">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            </a>
-        </div>
     </div>
+
+    <div class="bg-sky-300 rounded-lg  shadow-lg  text-sm text-blue-500 mb-10 px-5">
+                    
+        <div class="sm:hidden md:grid md:grid-rows-4 md:grid-cols-4 md:p-4 md:mb-0 md:text-indigo-500 md:font-semibold ">
+            <div>EVENT</div>
+            <div>CATEGORY</div>
+            <div>REGISTERD</div>
+            <div>SCEDULED</div>
+        </div>
+         <!-- Event item --> 
+        {% for event in events %}
+        <div class="border-b border-indigo-800 mb-2"></div>
+            {% comment %} <div>
+                
+            
+                <div class="grid grid-rows-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-2 h-10 font-semibold text-lg sm:space-y-5 justify-center">
+                    <div class="" >{{ event.name }}</div>
+                    <div> 
+                        <span class="px-3 py-1 sm:p-4 rounded-full w-30 bg-sky-600 text-white">{{ event.details.get_types_display }}
+                        </span>
+                    </div>
+                    <div> {{ event.participant.all.count }} </div>
+                    <div> {{ event.schedule }} </div>
+                </div>
+                <div class="flex justify-center gap-5 mt-5 px-3 pb-7">
+                    
+                    <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
+                    <form action=" {% url "delete-events" event.id %} " method= "POST">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
+                    </form>
+                    
+            </div> 
+            {% endcomment %}
+            <div class="grid px-1 sm:grid-rows-2 md:grid-cols-4 lg:grid-cols-5 sm:space-y-4 md:space-y-2">
+                <div class="text-xl font-semibold sm:row-span-1 sm:mx-auto lg:col-span-2"> {{event.name}} </div>
+                <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 sm:text-white sm:text-lg sm:shadow-lg "><span class="font-semibold underline text-white md:hidden ">Category:</span> {{event.details.get_types_display }}</div>
+                <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 lg:bg-none sm:text-white md:text-blue-500 lg:text-blue-500 sm:text-lg sm:shadow-lg md:shadow-none "><span class="font-semibold underline md:hidden">Participent:</span> {{event.participant.all.count}} </div>
+                <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 md:shadow-none sm:text-white md:text-blue-500 sm:text-lg sm:shadow-lg"><span class="font-semibold underline md:hidden">Date:</span> {{event.schedule}} </div>
+               
+            </div> 
+            {% comment %} update button {% endcomment %}
+            <div class="flex justify-center gap-5 mt-5 px-3 pb-7 sm:mt-10">
+                    
+                <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
+                <form action=" {% url "delete-events" event.id %} " method= "POST">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
+                </form>
+                
+            </div> 
+    
+        
+        {% endfor %}
+    </div> 
 </body>
 </html>
