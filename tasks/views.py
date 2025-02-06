@@ -172,3 +172,7 @@ def search_event(request):
     else:
         
         return render(request, "searched-result.html", {})
+    
+
+def navbar(request):
+    return render(request, "dashboard/navbar.html")
