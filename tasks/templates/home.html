@@ -8,33 +8,39 @@
   </head>
   <link rel="stylesheet" href= "{% static 'css/output.css' %}">
   <body class="bg-sky-950 w-full h-auto pb-10">
-    <div class=""></div>
+    
     <!-- header -->
     <div>
         
-        <div class="bg-[url(/static/images/2.png)] bg-cover h-screen bg-no-repeat">
+        <div class="bg-[url(/static/images/2.png)] bg-cover h-screen bg-no-repeat sm:min-w-max">
             <!-- navbar -->
-             <div>
-               
-                    <nav>
-                        <ul class="flex py-12 ml-12 gap gap-10">
-                            <li>
-                                 <a href="" class="ml-[5rem] pb-2 text-sky-600 border-b-2 border-indigo-900 font-bold" >HOME</a>
-                            </li>
-                            <li>
-                                 <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >Dashboard</a>
-                            </li>
-                            <li>
-                                 <a href="" class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >Event</a>
-                            </li>
-                            <li>
-                                 <a href="" class="ml-10 hover:pb-2 hover:text-sky-600 text-sky-600 hover:border-b-2 hover:border-indigo-900 hover:font-bold text-xl" >Others</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    
-                
-             </div>
+            <div class="pb-10 mt-0">
+                <nav class="flex items-center justify-between flex-wrap p-8">
+                    <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
+                      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+                      
+                    </div>
+                    <div class="block lg:hidden">
+                      <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                      </button>
+                    </div>
+                    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                      <div class="text-sm lg:flex-grow">
+                        <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
+                          HOME
+                        </a>
+                        <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
+                          DASHBOARD
+                        </a>
+                        <a href=" {% url "create-events" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
+                          HOST
+                        </a>
+                      </div>
+                      
+                    </div>
+                  </nav>
+            </div>
             <div class="flex p-10">
                 <div class="text-7xl font-bold text-sky-400 items-center p-30">
                     <p class="ml-30 mt-20 mx-20"><span class="text-9xl">E</span> VENT</p>
