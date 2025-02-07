@@ -1,117 +1,104 @@
 {% load static %}
-<!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-  </head>
-  <link rel="stylesheet" href= "{% static 'css/output.css' %}">
-  <body class="bg-sky-950 w-full h-auto pb-10">
-    
-    <!-- header -->
-    <div>
-        
-        <div class="bg-[url(/static/images/2.png)] bg-cover h-screen bg-no-repeat sm:min-w-max">
-            <!-- navbar -->
-            <div class="pb-10 mt-0">
-                <nav class="flex items-center justify-between flex-wrap p-8">
-                    <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
-                      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-                      
-                    </div>
-                    <div class="block lg:hidden">
-                      <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-                        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                      </button>
-                    </div>
-                    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                      <div class="text-sm lg:flex-grow">
-                        <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
-                          HOME
-                        </a>
-                        <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
-                          DASHBOARD
-                        </a>
-                        <a href=" {% url "create-events" %} " class="block lg:inline-block mr-4 lg:ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl">
-                          HOST
-                        </a>
-                      </div>
-                      
-                    </div>
-                  </nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "{% static 'css/output.css' %}">
+    <title>Document</title>
+</head>
+<body class="bg-gradient-to-r from-black to-sky-950  w-screen">
+  <!-- hero section -->
+  <header class="bg-[url(/static/images/2.png)] bg-cover sm:min-w-max md:min-h-screen md:p-10">
+ 
+      <!-- navbar -->
+      <div class="pb-10 mt-0">
+        <nav class="flex items-center justify-between flex-wrap p-8">
+            <!-- <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
+              <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+              
+            </div> -->
+            <div class="block lg:hidden">
+              <button class="flex items-center px-3 py-2 border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+              </button>
             </div>
-            <div class="flex p-10">
-                <div class="text-7xl font-bold text-sky-400 items-center p-30">
-                    <p class="ml-30 mt-20 mx-20"><span class="text-9xl">E</span> VENT</p>
-                    <p>MANAGEMENT PROGRAMME</p>
-                </div>
-                <div class="bg-slate-950 rounded-lg mt-0 w-120">
-                    <div class="text-white">
-                        <p class="text-5xl p-10  font-bold">GET REGISTERED</p>
-                        <div class="p-8">
-                            <P class="p-2"><span class="text-red-400">* </span> NAME</P>
-                            <input type="text" placeholder="Your Name" class="bg-white w-80 p-2 text-black rounded-lg">
-                            <P class="p-2"><span class="text-red-400">* </span> EMAIL</P>
-                            <input type="text"  class="bg-white w-80 p-2 text-black rounded-lg " placeholder="Your Email">
-                            
-                        </div>
-                        <div class="p-8 mb-2">
-                            <label for="category"><span class="p-2 pb-8 mb-3">Category</span></label>
-                            <div class="bg-white text-black w-40 p-1 rounded-lg">
-                                <select id="category" name="category" class="p-2">
-                                <option value="hackathon">Hackathon</option>
-                                <option value="music">Music</option>
-                                <option value="seminer">Seminer</option>
-                                </select>
-                                </div>
-                        </div>
-                    
-                        <div class="ml-48">
-                            <input type="submit" value="Sign In" class="bg-sky-600 hover:bg-green-950  w-20 h-10 rounded-full mt-10 ml-50 shadow-lg mb-20">
-                        </div>
-                    </div>
-
-                </div>
+            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+              <div class="text-sm lg:flex-grow">
+                <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                  HOME
+                </a>
+                <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                  DASHBOARD
+                </a>
+                <a href=" {% url "create-events" %} "     class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                  HOST
+                </a>
+              </div>
+              
             </div>
+          </nav>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 p-2 sm:space-y-20 md:-mt-20">
+        <div class="text-sky-500 text-5xl p-5 mx-20 my-20 font-bold drop-shadow-lg"><span class="text-9xl ">C</span>reating Lasting<br> <p class="mx-20">Memories</p> </div>
+        <div class="text-white bg-slate-950 rounded-lg mt-0 w-100 p-3 me-5 mx-auto">
+          <p class="text-5xl p-10  font-bold ">GET REGISTERED</p>
+          <div class="grid grid-rows-2">
+            <div class="p-2 mx-auto">
+              <P class="p-2"><span class="text-red-400">* </span> NAME</P>
+              <input type="text" placeholder="Your Name" class="bg-white w-80 p-2 text-black rounded-lg">
+              <P class="p-2"><span class="text-red-400">* </span> EMAIL</P>
+              <input type="text"  class="bg-white w-80 p-2 text-black rounded-lg " placeholder="Your Email">
+              
+          </div>
+          <div class="ml-48">
+            <input type="submit" value="Sign In" class="bg-sky-600 hover:bg-green-950  w-20 h-10 rounded-full mt-10 ml-50 shadow-lg mb-20">
+          </div>
+          </div>
         </div>
-    </div>
+      </div>
+ 
+  </header>
 
-    <!-- Event list 1 -->
-     {% for event in events %}
-        <div>
-            <div class="bg-white p-10 rounded-lg mt-20 m-20">
-                <div class="flex">
-                    <div><img src="/static/images/cart-img.svg" class="w-200 h-70  p-5"></div>
-                    <div class="px-2">
-                        <div>
-                            <p class="text-2xl font-bold mb-2">{{ event.name }}</p>
-                            <p class="text-gray-400 "> {{ event.category }} </p>
-                            <p class="text-white mb-3 px-3 py-1 bg-sky-600 rounded-full w-20 mt-2"> {{event.details.get_types_display}} </p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam magnam esse consequuntur quos saepe, asperiores quisquam temporibus voluptatibus nostrum harum laborum, ratione maiores debitis! Accusamus, ratione aliquam dignissimos a exercitationem earum fuga nam porro tenetur error libero pariatur nisi maxime quasi! Explicabo qui eius quia saepe labore delectus non vel!</p>
-                            {% comment %} <p> {{event.description }} </p> {% endcomment %}
-                        </div>
-                        <div class="flex justify-between p-5">
-                            <div>
-                                <p class="text-white px-3 py-1 bg-sky-600 rounded-lg w-40 mt-2">Date: {{ event.schedule }}</p>
-                                
-                            </div>
-                            <div>
-                                <p class="text-white  px-3 py-1 bg-sky-600 rounded-lg w-60 mt-2">Venue: {{event.location}}</p>
-                                
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                </div>
+   <!-- event list sectiion -->
+    <main>
+      {% for event in events %}
+        <div class="grid grid-cols-1 md:grid-cols-3 text-black bg-white px-1 py-1 sm:px-3 sm:py-3 md:px-5 md:py-5 rounded-lg mt-5 sm:mt-10 md:mt-20 mb-10 w-20 sm:w-3/4 md:w-150 mx-20 ">
+          <!-- picture column -->
+          <div>
+            <img src="/static/images/cart-img.svg" class="p-1 sm:p-3 md:p-5 sm:w-80 sm:h-80 sm:ml-20 md:ml-0">
+          </div>
+          <!-- Details column -->
+          <div class="col-span-2 sm:px-20 md:px-0">
+            <div>
+              <p class="font-bold text-2xl mb-2"> {{event.name}} </p>
+              <div>
+                <p> {{event.category}} </p>
+                <p class="text-white px-3 py-1 bg-sky-600 rounded-lg w-40 mt-5 mb-5"> {{event.details.get_types_display}} </p>
+              </div>
             </div>
+            <div>
+              <p> {{event.description}} </p>
+            </div>
+            <div class="grid sm:grid-rows-2 md:grid-cols-2 -mb-1 sm:justify-around sm:space-y-0.5">
+              <div>
+                <p class="text-white px-3 py-1 bg-sky-600 rounded-lg w-40 mt-20">Date: {{event.schedule}} </p>
+                
+            </div>
+            <div>
+                <p class="text-white  px-3 py-1 bg-sky-600 rounded-lg sm:w-40 md:w-50 lg:w-50 sm:text-sm md:text-lg mt-2 sm:mt-5 md:mt-20">Venue: {{event.location}} </p>
+                
+            </div>
+            </div>
+          </div>
         </div>
-     {% endfor %}
-   
-  
 
+      {% endfor %}
+      
 
+    </main>
     
-  </body>
+</body>
 </html>
+
