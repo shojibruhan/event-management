@@ -11,79 +11,71 @@
 
 </head>
 
-<body>
-    <div class="bg-sky-950 w-full h-auto pb-10">
+<body class="bg-sky-950">
+    <div class="w-full h-96 pb-10">
        <main class="max-w-[1400px] mx-auto p-10">
-        <div >
+       
             <!-- Nav Bar -->
-            <div class="menu-bar">
-                <nav class="bg-gray-800">
-                    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                      <div class="relative flex h-16 items-center justify-between">
-                        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                          <!-- Mobile menu button-->
-                          <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset" aria-controls="mobile-menu" aria-expanded="false">
-                            <span class="absolute -inset-0.5"></span>
-                            <span class="sr-only">Open main menu</span>
-                            <!--
-                              Icon when menu is closed.
-                  
-                              Menu open: "hidden", Menu closed: "block"
-                            -->
-                            <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                            <!--
-                              Icon when menu is open.
-                  
-                              Menu open: "block", Menu closed: "hidden"
-                            -->
-                            <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                            </svg>
-                          </button>
-                        </div>
-                        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                          <div class="flex shrink-0 items-center">
-                            <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
-                          </div>
-                          <div class="hidden sm:ml-6 sm:block">
-                            <div class="flex space-x-4">
-                              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                              <a href="#" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</a>
-                              <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
-                              <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
-                              <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
+            {% comment %} <div class="">
+                
+                    <nav>
+                        <ul class="flex py-6 gap gap-10">
+                            <li>
+                                 <a href=" {% url "home" %} " class="ml-[5rem] pb-2 text-sky-400 border-b-2 border-white font-bold text-xl" >HOME</a>
+                            </li>
+                            <li>
+                                 <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >DASHBOARD</a>
+                            </li>
+                            <li>
+                                 <a href="" class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >EVENTS</a>
+                            </li>
+                            <li>
+                                 <a href=" {% url "create-events" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >HOST</a>
+                            </li>
+                        </ul>
+                    </nav>
+                 
+            </div> {% endcomment %}
+
+            <div class="pb-10 mt-0">
+                <nav class="flex items-center justify-between flex-wrap p-8">
+                    <!-- <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
+                      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+                      
+                    </div> -->
+                    <div class="block lg:hidden">
+                      <button class="flex items-center px-3 py-2 border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
+                        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                      </button>
                     </div>
-                  
-                    <!-- Mobile menu, show/hide based on menu state. -->
-                    <div class="sm:hidden" id="mobile-menu">
-                      <div class="space-y-1 px-2 pt-2 pb-3">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Dashboard</a>
-                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
-                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
-                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                      <div class="text-sm lg:flex-grow">
+                        <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                          HOME
+                        </a>
+                        <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                          DASHBOARD
+                        </a>
+                        <a href=" {% url "create-events" %} "     class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
+                          HOST
+                        </a>
                       </div>
+                      
                     </div>
                   </nav>
-                  
-            </div>
-           </div>
-            
+              </div>
+           
                 <!-- stats grid -->
-                <div class="my-10 grid grid-cols-4 gap-5">
-                    <!-- Card-1 -->
-                    <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-3 lg:gap-5 sm:space-y-3 md:space-y-5 mt-20 mb-20 ">
+                    <!-- Card-1 participent-->
+                     
+                    <a href="{% url "view-participent" %}?type=total_participant">
+                    <div class="bg-sky-300 rounded-lg p-6 mt-5 shadow-lg">
+                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL PARTICIPENT</h3>
                         <div class="flex justify-between ">
                             <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">3</p>
+                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ total_participant}} </p>
                                 <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
                             </div>
                             <div class="bg-green-300 p-2 rounded-full w-10 h-10">
@@ -99,12 +91,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Card-2 -->
+                    </a>
+                 
+                    <!-- Card- 2- TOTAL EVENTS -->
+                    <a href="{% url "manager-dashboard" %}?type=all">
                     <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
                         <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
                         <div class="flex justify-between ">
                             <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">3</p>
+                                <p class="text-3xl font-semibold mb-1 text-indigo-950"> {{ counts.total}} </p>
                                 <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
                             </div>
                             <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
@@ -120,12 +115,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Card-3 -->
+                    </a>
+                    <!-- Card-3 UPCOMING EVENTS -->
+                    <a href="{% url "manager-dashboard" %}">
                     <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
+                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">UPCOMING EVENTS</h3>
                         <div class="flex justify-between ">
                             <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">3</p>
+                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ counts.upcoming_events }}</p>
                                 <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
                             </div>
                             <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
@@ -141,12 +138,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Card-4 -->
+                    </a>
+                    <!-- Card-4 PAST EVENTS-->
+                    <a href="{% url "manager-dashboard" %}?type=past_events">
                     <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
+                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">PAST EVENTS</h3>
                         <div class="flex justify-between ">
                             <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">3</p>
+                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{counts.past_events }}</p>
                                 <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
                             </div>
                             <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
@@ -162,82 +161,60 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                  
+                <!-- Search Bar-->
                 <div class="flex gap-5 justify-end">
-                    <div class="bg-white w-100 h-9 rounded-lg mb-5 p-1"><input type="text" placeholder="Search by name"></div> 
+                    <div class="bg-white w-100 sm:w-1/2 h-9 rounded-lg mb-5 p-1">
+                        <form action=" {% url "searched-result" %} " method="POST">
+                            {% csrf_token %}
+                        <input type="search" placeholder="Search by name" name="searched">
+                    </div> 
                     <div><button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
+                </div> 
+                 
+                <div >
+                    {% if messages %}
+                      {% for message in messages %}
+                        <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %} bg-rose-600 {% endif %} ">{{ message }}</p>
+                      {% endfor %}
+                    {% endif %}
                 </div>
-                
 
                  <!-- Events title -->
                 <div class="bg-sky-300 rounded-lg  shadow-lg  text-sm text-blue-500 mb-10 px-5">
                     
-                    <div class="grid grid-cols-4 p-4 text-indigo-500">
+                    <div class="sm:hidden md:grid md:grid-rows-4 md:grid-cols-4 md:p-4 md:mb-0 md:text-indigo-500 md:font-semibold ">
                         <div>EVENT</div>
                         <div>CATEGORY</div>
-                        <div>PARTICIPENT</div>
+                        <div>REGISTERD</div>
                         <div>SCEDULED</div>
                     </div>
                      <!-- Event item --> 
-                    <div>
-                        <div class="border-b border-indigo-800 mb-4"></div>
+                    {% for event in events %}
+                    <div class="border-b border-indigo-800 mb-2"></div>
+                    <div class="grid px-1 sm:grid-rows-2 md:grid-cols-4 lg:grid-cols-5 sm:space-y-4 md:space-y-2">
+                        <div class="text-xl font-semibold sm:row-span-1 sm:mx-auto lg:col-span-2"> {{event.name}} </div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 md:p-2 lg:p-4 lg:px-8 lg:py-3 sm:rounded-full md:rounded-md lg:rounded-full sm:w-30 md:w-20 md:h-12 lg:w-32 lg:h-15 sm:bg-sky-600 sm:text-white sm:text-lg sm:shadow-lg "><span class="font-semibold underline text-white md:hidden ">Category:</span> {{event.details.get_types_display }}</div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 lg:bg-none sm:text-white md:text-blue-500 lg:text-blue-500 sm:text-lg sm:shadow-lg md:shadow-none "><span class="font-semibold underline md:hidden">Participent:</span> {{event.participant.all.count}} </div>
+                        <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 md:shadow-none sm:text-white md:text-blue-500 sm:text-lg sm:shadow-lg"><span class="font-semibold underline md:hidden">Date:</span> {{event.schedule}} </div>
+                       
+                    </div> 
+                    {% comment %} update button {% endcomment %}
+                    <div class="flex justify-center gap-5 mt-5 px-3 pb-7 sm:mt-10">
+                            
+                        <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
+                        <form action=" {% url "delete-events" event.id %} " method= "POST">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
+                        </form>
+                        
+                    </div> 
+                
                     
-                     <div class="grid grid-cols-4 p-2 font-semibold text-lg">
-                        <div>Codefore Round 1</div>
-                        <div>Programming</div>
-                        <div>10</div>
-                        <div>30-01-2025</div>
-                    </div>
-                    <div class="flex justify-center gap-5 mt-5 px-3 pb-7">
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Edit</button>
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                     </div>
-                    </div>
-                    <div>
-                        <div class="border-b border-indigo-800 mb-4"></div>
-                    
-                     <div class="grid grid-cols-4 p-2 font-semibold text-lg">
-                        <div>Codefore Round 1</div>
-                        <div>Programming</div>
-                        <div>10</div>
-                        <div>30-01-2025</div>
-                    </div>
-                    <div class="flex justify-center gap-5 mt-5 px-3 pb-7">
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Edit</button>
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                     </div>
-                    </div>
-                    <div>
-                        <div class="border-b border-indigo-800 mb-4"></div>
-                    
-                     <div class="grid grid-cols-4 p-2 font-semibold text-lg">
-                        <div>Codefore Round 1</div>
-                        <div>Programming</div>
-                        <div>10</div>
-                        <div>30-01-2025</div>
-                    </div>
-                    <div class="flex justify-center gap-5 mt-5 px-3 py-3">
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Edit</button>
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                     </div>
-                    </div>
-                    <div>
-                        <div class="border-b border-indigo-800 mb-4"></div>
-                    
-                     <div class="grid grid-cols-4 p-2 font-semibold text-lg">
-                        <div>Codefore Round 1</div>
-                        <div>Programming</div>
-                        <div>10</div>
-                        <div>30-01-2025</div>
-                    </div>
-                    <div class="flex justify-center gap-5 mt-5 px-3 py-3">
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Edit</button>
-                        <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                     </div>
-                    </div>
-                    
-                </div>
+                    {% endfor %}
+                </div> 
 
 
     

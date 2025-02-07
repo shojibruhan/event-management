@@ -26,6 +26,11 @@ class StyleForMixin:
                     'class': self.default_classes,
                     'placeholder': placeholder_text
                 })
+            elif isinstance(field.widget, forms.EmailField):
+                field.widget.attrs.update({
+                    'class': self.default_classes,
+                    'placeholder': placeholder_text
+                })
             
             elif isinstance(field.widget, forms.SelectDateWidget):
                 field.widget.attrs.update({
@@ -35,7 +40,7 @@ class StyleForMixin:
            
             elif isinstance(field.widget, forms.Select):
                 field.widget.attrs.update({
-                    'class': 'border-3 border-blue-500 rounded-lg space-y-2',
+                    'class': 'border-2 border-indigo-800 mb-2 rounded-lg space-y-2 p-2',
                     
                 })
            
@@ -59,4 +64,26 @@ class EventModelForm(StyleForMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.styleWidget()
 
-      
+class EventDetailsModelForm(StyleForMixin, forms.ModelForm):
+    class Meta:
+        model= EventDetails
+        fields= ['types']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.styleWidget()
+
+
+class ParticipentModelForm(StyleForMixin, forms.ModelForm):
+    class Meta:
+        model= Participant
+        # fields= '__all__'
+        fields= ['name', 'email']
+
+        # widgets= {
+        #     'email': forms.EmailField
+        # }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.styleWidget()
