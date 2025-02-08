@@ -174,3 +174,6 @@ def search_event(request):
         return render(request, "searched-result.html", {})
     
 
+def test(request):
+    participents= Participant.objects.all()
+    return render(request, "test.html", {"participents":participents})
