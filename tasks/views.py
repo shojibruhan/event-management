@@ -109,7 +109,7 @@ def update_event(request, id):
 
     return render(request, 'dashboard/event-form.html', context)
 
-def view_events(request):
+def view_participents(request):
     # events= Event.objects.all()
     # events= Event.objects.filter(status= "U")
     # events= Event.objects.filter(schedule= date.today())
@@ -136,7 +136,7 @@ def view_events(request):
     participents= Participant.objects.all()
     
 
-    return render(request , "show_event.html", {"participents": participents})
+    return render(request , "show_participents.html", {"participents": participents})
 
 
 
@@ -175,36 +175,7 @@ def search_event(request):
     
 
 def test(request):
-    type= request.GET.get('type', "upcoming_events")
-    # print(type)
+    participents= Participant.objects.all()
     
-    base_query= Event.objects.select_related('details').prefetch_related('participant')
-    if type == "upcoming_events":
-        events= base_query.filter(status= "U")
-    elif type == "past_events":
-        events= base_query.filter(status= "P")
-    elif type == "all":
-        events= base_query.all()
 
-    query= request.GET.get('q', " ")
-    # if query:
-    #     search= base_query.filter(name__icontains = query)
-    counts= Event.objects.aggregate(
-        total= Count('id'),
-        upcoming_events= Count('id', filter= Q(status= "U")),
-        past_events= Count('id', filter= Q(status= "P"))
-       
-    )
-    events= Event.objects.all()
-   
-    total_participant= Participant.objects.all().count()
-
-    context= {
-        "events": events,
-        "counts": counts,
-        "total_participant": total_participant
-    }
-
-
-    # return render(request, 'dashboard/manager-dashboard.html', context)
-    return render(request, "test.html", context)
+    return render(request , "test.html", {"participents": participents})

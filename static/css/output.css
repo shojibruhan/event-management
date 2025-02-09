@@ -1018,6 +1018,10 @@ video {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -1619,6 +1623,18 @@ video {
   padding-right: 1rem;
 }
 
+.ps-5 {
+  padding-inline-start: 1.25rem;
+}
+
+.ps-44 {
+  padding-inline-start: 11rem;
+}
+
+.ps-52 {
+  padding-inline-start: 13rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -2112,6 +2128,18 @@ video {
     padding-inline-start: 6rem;
   }
 
+  .sm\:ps-36 {
+    padding-inline-start: 9rem;
+  }
+
+  .sm\:ps-32 {
+    padding-inline-start: 8rem;
+  }
+
+  .sm\:ps-40 {
+    padding-inline-start: 10rem;
+  }
+
   .sm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -2288,6 +2316,10 @@ video {
 
   .md\:ps-56 {
     padding-inline-start: 14rem;
+  }
+
+  .md\:ps-52 {
+    padding-inline-start: 13rem;
   }
 
   .md\:text-lg {
