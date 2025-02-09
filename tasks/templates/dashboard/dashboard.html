@@ -5,224 +5,310 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{% static 'css/output.css' %}">
-    <title>Document</title>
 
-    
-
+    <title>Dashboard</title>
 </head>
-
-<body class="bg-sky-950">
-    <div class="w-full h-96 pb-10">
-       <main class="max-w-[1400px] mx-auto p-10">
-       
-            <!-- Nav Bar -->
-            {% comment %} <div class="">
-                
-                    <nav>
-                        <ul class="flex py-6 gap gap-10">
-                            <li>
-                                 <a href=" {% url "home" %} " class="ml-[5rem] pb-2 text-sky-400 border-b-2 border-white font-bold text-xl" >HOME</a>
-                            </li>
-                            <li>
-                                 <a href=" {% url "manager-dashboard" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >DASHBOARD</a>
-                            </li>
-                            <li>
-                                 <a href="" class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >EVENTS</a>
-                            </li>
-                            <li>
-                                 <a href=" {% url "create-events" %} " class="ml-10 hover:pb-2 hover:text-sky-400 text-sky-600 hover:border-b-2 hover:border-white hover:font-bold text-xl" >HOST</a>
-                            </li>
-                        </ul>
-                    </nav>
-                 
-            </div> {% endcomment %}
-
-            <div class="pb-10 mt-0">
-                <nav class="flex items-center justify-between flex-wrap p-8">
-                    <!-- <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
-                      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-                      
-                    </div> -->
-                    <div class="block lg:hidden">
-                      <button class="flex items-center px-3 py-2 border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
-                        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                      </button>
-                    </div>
-                    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                      <div class="text-sm lg:flex-grow">
-                        <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                          HOME
-                        </a>
-                        <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                          DASHBOARD
-                        </a>
-                        <a href=" {% url "create-events" %} "     class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                          HOST
-                        </a>
-                      </div>
-                      
-                    </div>
-                </nav>
-            </div>
+<body class="bg-gray-900">
+    <!-- Search Bar-->
+    <div class="bg-gray-800 p-4">
+        <div class="flex justify-end items-center">
+            
+            <form action=" {% url "searched-result" %} " method="POST" class="flex gap-3 items-center">
+                    {% csrf_token %}
+                <input type="search" 
+                placeholder="Search by name" 
+                name="searched"
+                class="sm:w-full md:w-2/3 lg:w-96 h-10 p-2 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-indigo-500">
+                <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-12 rounded-full text-white shadow-md ">Search</button>
+            </form>
            
-            <!-- stats grid -->
-            
-            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-3 lg:gap-5 sm:space-y-3 md:space-y-5 mt-20 mb-20 ">
-                <!-- Card-1 participent-->
-                    
-                <a href="{% url "view-participent" %}?type=total_participant">
-                    <div class="bg-sky-300 rounded-lg p-6 mt-5 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL PARTICIPENT</h3>
-                        <div class="flex justify-between ">
-                            <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ total_participant}} </p>
-                                <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                            </div>
-                            <div class="bg-green-300 p-2 rounded-full w-10 h-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
-                                    aria-hidden="true" 
-                                    data-slot="icon" 
-                                    class="w-6 h-6 text-blue-700">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
-                <!-- Card- 2- TOTAL EVENTS -->
-                <a href="{% url "manager-dashboard" %}?type=all">
-                    <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">TOTAL EVENTS</h3>
-                        <div class="flex justify-between ">
-                            <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950"> {{ counts.total}} </p>
-                                <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                            </div>
-                            <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
-                                    aria-hidden="true" 
-                                    data-slot="icon" 
-                                    class="w-6 h-6 text-blue-700">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <!-- Card-3 UPCOMING EVENTS -->
-                <a href="{% url "manager-dashboard" %}">
-                    <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">UPCOMING EVENTS</h3>
-                        <div class="flex justify-between ">
-                            <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{ counts.upcoming_events }}</p>
-                                <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                            </div>
-                            <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
-                                    aria-hidden="true" 
-                                    data-slot="icon" 
-                                    class="w-6 h-6 text-blue-700">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <!-- Card-4 PAST EVENTS-->
-                <a href="{% url "manager-dashboard" %}?type=past_events">
-                    <div class="bg-sky-300 rounded-lg p-6 shadow-lg">
-                        <h3 class="text-sm font-semibold text-indigo-950 mb-5">PAST EVENTS</h3>
-                        <div class="flex justify-between ">
-                            <div>
-                                <p class="text-3xl font-semibold mb-1 text-indigo-950">{{counts.past_events }}</p>
-                                <p class="text-sm text-gray-800 mt-2">11 Last Months</p>
-                            </div>
-                            <div class="bg-green-300 p-2 rounded-full w-10 h-10 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
-                                    aria-hidden="true" 
-                                    data-slot="icon" 
-                                    class="w-6 h-6 text-blue-700">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-                 
-            <!-- Search Bar-->
-            <div class="flex gap-5 justify-end">
-                <div class="bg-white w-100 sm:w-1/2 h-9 rounded-lg mb-5 p-1">
-                    <form action=" {% url "searched-result" %} " method="POST">
-                        {% csrf_token %}
-                    <input type="search" placeholder="Search by name" name="searched">
-                </div> 
-                <div><button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Search</button></div> 
-            </div> 
-                
-            <div >
-                {% if messages %}
-                    {% for message in messages %}
-                    <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %} bg-rose-600 {% endif %} ">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            </div>
-
-                <!-- Events title -->
-            <div class="bg-sky-300 rounded-lg  shadow-lg  text-sm text-blue-500 mb-10 px-5">
-                
-                <div class="sm:hidden md:grid md:grid-rows-4 md:grid-cols-4 md:p-4 md:mb-0 md:text-indigo-500 md:font-semibold ">
-                    <div>EVENT</div>
-                    <div>CATEGORY</div>
-                    <div>REGISTERD</div>
-                    <div>SCEDULED</div>
+        </div> 
+         
+        <div >
+            {% if messages %}
+              {% for message in messages %}
+                <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %} bg-rose-600 {% endif %} ">{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    
+    
+    <!-- Nav Bar -->
+    <div class="flex flex-row h-screen">
+        <!-- large screen -->
+        <div class="fixed top-0 left-0 h-screen w-48 bg-gray-800 p-5 hidden shadow-2xl text-white font-semibold uppercase  md:block">
+            <div class="flex flex-col mt-4 space-y-6">
+                <div>
+                    <button class="flex items-center  border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
+                        <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                      </button>
                 </div>
-                    <!-- Event item --> 
-                {% for event in events %}
-                <div class="border-b border-indigo-800 mb-2"></div>
-                <div class="grid px-1 sm:grid-rows-2 md:grid-cols-4 lg:grid-cols-5 sm:space-y-4 md:space-y-2">
-                    <div class="text-xl font-semibold sm:row-span-1 sm:mx-auto lg:col-span-2"> {{event.name}} </div>
-                    <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 md:p-2 lg:p-4 lg:px-8 lg:py-3 sm:rounded-full md:rounded-md lg:rounded-full sm:w-30 md:w-20 md:h-12 lg:w-32 lg:h-15 sm:bg-sky-600 sm:text-white sm:text-lg sm:shadow-lg "><span class="font-semibold underline text-white md:hidden ">Category:</span> {{event.details.get_types_display }}</div>
-                    <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 lg:bg-none sm:text-white md:text-blue-500 lg:text-blue-500 sm:text-lg sm:shadow-lg md:shadow-none "><span class="font-semibold underline md:hidden">Participent:</span> {{event.participant.all.count}} </div>
-                    <div class="sm:mx-auto sm:px-3 sm:py-1 sm:p-4 sm:rounded-full sm:w-30 sm:bg-sky-600 md:bg-none md:bg-opacity-0 md:shadow-none sm:text-white md:text-blue-500 sm:text-lg sm:shadow-lg"><span class="font-semibold underline md:hidden">Date:</span> {{event.schedule}} </div>
-                    
-                </div> 
-                {% comment %} update button {% endcomment %}
-                <div class="flex justify-center gap-5 mt-5 px-3 pb-7 sm:mt-10">
-                        
-                    <a href="{% url "update-events" event.id %} " class="bg-indigo-700 hover:bg-indigo-900 w-18 h-8 rounded-full text-white shadow-md px-5 py-1 ">Edit</a>
-                    <form action=" {% url "delete-events" event.id %} " method= "POST">
-                        {% csrf_token %}
-                        <button type="submit" class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md">Delete</button>
-                    </form>
-                    
-                </div> 
+                <a href="{% url "home" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Home</a>
+                <a href="{% url "manager-dashboard" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">dashboard</a>
+                <a href="{% url "create-events" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Host event</a>
+                <a href="{% url "view-participent" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">participents</a>
+                
+               
+            </div>
+        </div>
+        <!-- mobile view nav bar -->
+        <div class="fixed top-0 left-0 h-screen w-24 bg-gray-800 p-3 md:hidden" >
+            <div class="flex flex-col mt-4 space-y-12">
+
+                
+                <button class="mx-auto text-white">
+                    <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
             
                 
-                {% endfor %}
-            </div> 
-
+                <a href="#">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                            </svg>
+                    </span>
+                    </div>
+                </a>
+                <a href="{% url "manager-dashboard" %}">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                            </svg>
+                              
+                    </span>
+                    </div>
+                </a>
+                <a href="{% url "create-events" %}">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center">
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 16 16" 
+                                fill="currentColor" 
+                                class="size-5">
+                                <path fill-rule="evenodd" d="M11.986 3H12a2 2 0 0 1 2 2v6a2 2 0 0 1-1.5 1.937V7A2.5 2.5 0 0 0 10 4.5H4.063A2 2 0 0 1 6 3h.014A2.25 2.25 0 0 1 8.25 1h1.5a2.25 2.25 0 0 1 2.236 2ZM10.5 4v-.75a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0-.75.75V4h3Z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M3 6a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H3Zm1.75 2.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5ZM4 11.75a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                            </svg>
+                              
+                        </span>
+                    </div>
+                </a>
+               
+                  
+                <a href="{% url "view-participent" %}">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center">
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 16 16" 
+                                fill="currentColor" 
+                                class="size-6">
+                                <path d="M8.5 4.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 13c.552 0 1.01-.452.9-.994a5.002 5.002 0 0 0-9.802 0c-.109.542.35.994.902.994h8ZM12.5 3.5a.75.75 0 0 1 .75.75v1h1a.75.75 0 0 1 0 1.5h-1v1a.75.75 0 0 1-1.5 0v-1h-1a.75.75 0 0 1 0-1.5h1v-1a.75.75 0 0 1 .75-.75Z" />
+                              </svg>
+                              
+                        </span>
+                    </div>
+                </a>
+                
+                
+            </div>
+        </div>
+        <!-- cart-section -->
+        <div class="flex-auto bg-gray-900 sm:ps-24 md:ps-48">
+            <!-- cart items -->
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 mt-24">
+                 <!-- Total Participent -->
+                <a href="{% url "view-participent" %}?type=total_participant">
+                    <div class="bg-lime-200 p-6 rounded-lg shadow-sm shadow-white">
+                        <h3 class="text-3xl font-semibold text-indigo-950 mb-16">TOTAL PARTICIPENT</h3>
+                            <div class="flex justify-between ">
+                                <div>
+                                    <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{total_participant}} </p>
+                                    <div>
+                                        <div class="flex -space-x-2">
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                    <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                        <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </a>
+                <!-- Total Events -->
+                
+                <a href="{% url "manager-dashboard" %}?type=all">
+                    <div class="bg-orange-200 p-6 rounded-lg shadow-sm shadow-white">
+                        <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">TOTAL EVENTS</h3>
+                            <div class="flex justify-between ">
+                                <div>
+                                    <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.total}} </p>
+                                    <div>
+                                        <div class="flex -space-x-2">
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                    <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                        <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </a>
+            <!-- UPCOMING Events -->
+            <a href="{% url "manager-dashboard" %}">
+                <div class="bg-yellow-200 p-6 rounded-lg shadow-sm shadow-white">
+                    <h3 class="text-3xl font-semibold text-indigo-950 mb-16">UPCOMING EVENTS</h3>
+                        <div class="flex justify-between ">
+                            <div>
+                                <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.upcoming_events}} </p>
+                                <div>
+                                    <div class="flex -space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                    <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+            </a>
+            <!-- Past Events -->
+            <a href="{% url "manager-dashboard" %}?type=past_events">
+                <div class="bg-blue-200 p-6 rounded-lg shadow-sm shadow-white">
+                    <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">PAST EVENTS</h3>
+                        <div class="flex justify-between ">
+                            <div>
+                                <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.past_events}} </p>
+                                <div>
+                                    <div class="flex -space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                    <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+            </a>
+            
+            </div>
+            <!-- Events title -->
+            <div class="overflow-auto rounded-lg md:ps-4 pr-4">   
+                <table class="w-full bg-gray-900 text-white shadow-lg border-separate border-spacing-y-2">
+                    <thead class="border-b-2 border-gray-800">
+        
+                        <tr class="h-12">
+                
+                            <th class=" px-4 py-2">Title</th>
+                            <th class=" border-gray-800 px-4 py-2">Category</th>
+                            <th class=" border-gray-800 px-4 py-2">Date</th>
+                            <th class=" border-gray-800 px-4 py-2">Participent</th>
+                            <th class=" border-gray-800 px-4 py-2">Location</th>
+                            <th class=" border-gray-800 px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-start divide-y divide-white ">
+                        {% for event in events %}
+                            <tr class="odd:bg-gray-700 even:bg-gray-600 h-12 text-white ">
+                                <td class="whitespace-nowrap text-sm font-medium  p-5"> {{event.name}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.details.get_types_display}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.schedule}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.participant.all.count}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.location}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
+                                    <a href="{% url "update-events" event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">Edit</a>
+                                    
+                                    <form action=" {% url "delete-events" event.id %} " method= "POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                      
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- Events list: mobile view -->
+             {% comment %}
+            <div class="grid grid-cols-1 gap-4 ps-4">
+                 {% for participent in participents %} 
+                    <div class="p-4 space-y-4 bg-white rounded-lg shadow text-black">
+                        <div class="flex flex-col items-center space-y-0">
+                            <div>
+                                Management market yourself indicate black deep price.
+                            </div>
+                            <div class="font-semibold py-4">  participent.name  </div>
+                            <div class="">ID: 00 participent.id </div>
+                        </div>
+                        <div class="flex space-x-3 justify-around pb-5">
+                            <div>  participent.email  </div>
+                            <div>
+                                <span class="p-1.5 text-xs font-medium uppercase text-green-800 bg-green-200 rounded-lg bg-opacity-70 tracking-widest">active</span>
+                            </div>
+                            <div>Uttarkhan, Dhaka</div>
+                        </div>
+            </div>
+              {% endfor %} {% endcomment %}
+                 
+        </div>
+        </div>
+        
+    </div>
 
     
-            
-       </main>
-         
-         
-         
-    </div>
 </body>
 </html>
+
