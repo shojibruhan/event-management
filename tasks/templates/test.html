@@ -6,68 +6,285 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{% static 'css/output.css' %}">
 
-    <title>Table</title>
+    <title>Dashboard</title>
 </head>
-<body class=" bg-gray-200 p-5">
-    <h1 class="flex justify-center mt-10 mb-10 items-center text-5xl font-bold">Participent List</h1>
-    <div class="overflow-auto rounded-lg shadow-lg hidden md:block">   
-        <table class="w-full bg-white shadow-lg">
-            <thead class="border-b-2 border-gray-300 h-10">
+<body class="bg-gray-900">
+    <!-- Search Bar-->
+    {% comment %} <div class="bg-gray-800 p-4">
+        <div class="flex sm:gap-5 md:gap-1 justify-end">
+            <div class="sm:w-1/2 md:1/3 h-9 rounded-lg mb-5 p-1">
+                <form action=" {% url "searched-result" %} " method="POST">
+                    {% csrf_token %}
+                <input type="search" 
+                placeholder="Search by name" 
+                name="searched "
+                class="sm:w-full lg:w-1/2 h-12 p-2 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+            </div> 
+            <div class="py-3">
+                <button class="bg-indigo-700 hover:bg-indigo-900 w-20 h-8 rounded-full text-white shadow-md ">Search</button>
+            </div> 
+        </div> 
+         
+        <div >
+            {% if messages %}
+              {% for message in messages %}
+                <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'error' %} bg-rose-600 {% endif %} ">{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+        </div>
+    </div> {% endcomment %}
+    <!-- Nav Bar -->
+    <div class="flex flex-row h-screen">
+        <!-- large screen -->
+        <div class="fixed top-0 left-0 h-screen w-48 bg-gray-800 p-5 hidden shadow-2xl text-white font-semibold uppercase  md:block">
+            <div class="flex flex-col mt-4 space-y-6">
+                <div>
+                    <button class="flex items-center  border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
+                        <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                      </button>
+                </div>
+                <a href="{% url "home" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Home</a>
+                <a href="{% url "manager-dashboard" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">dashboard</a>
+                <a href="{% url "create-events" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Host event</a>
+                <a href="{% url "view-participent" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">participents</a>
+                <a href="#" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">add participent</a>
+                <a href="#" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">log out</a>
+            </div>
+        </div>
+        <!-- mobile view nav bar -->
+        <div class="fixed top-0 left-0 h-screen w-24 bg-gray-800 p-3 md:hidden" >
+            <div class="flex flex-col mt-4 space-y-12">
 
-                <tr>
-                    <th>ID</th>
-                    <th>Pic</th>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Status</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-            <tbody class="text-center divide-y divide-gray-300 ">
-                {% for participent in participents %}
-                <tr class="odd:bg-slate-200 even:bg-slate-100">
-                    <td class="whitespace-nowrap text-sm text-indigo-500 font-medium p-5"> {{participent.id}} </td>
-                    <td class="whitespace-nowrap text-sm text-indigo-500 font-medium p-5">
-                        <img src="/static/images/profile-img.jpg" alt="" class="mx-auto w-20  rounded-full">
-                    </td>
-                    <td class="whitespace-nowrap text-sm text-indigo-500  p-5 font-semibold"> {{participent.name}} </td>
-                    <td class="whitespace-nowrap text-sm text-indigo-500 font-medium p-5"> {{participent.email}} </td>
-                    <td class="whitespace-nowrap text-sm text-indigo-500 font-medium p-5">
-                        <span class="p-1.5 text-xs font-medium uppercase text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-70 tracking-widest">Unknown</span>
-                    </td>
-                    <td class="twhitespace-nowrap ext-sm text-indigo-500 font-medium p-5">N/A</td>
-                </tr>
-               
-                {% endfor %}
-            </tbody>
-        </table>
+                
+                <button class="mx-auto text-white">
+                    <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            
+                
+                <a href="#">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg></span>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg></span>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg></span>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                        <span class="items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg></span>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+        <!-- cart-section -->
+        <div class="flex-auto bg-gray-900 sm:ps-24 md:ps-48">
+            <!-- cart items -->
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 mt-24">
+                 <!-- Total Participent -->
+                <a href="{% url "view-participent" %}?type=total_participant">
+                    <div class="bg-lime-200 p-6 rounded-lg shadow-sm shadow-white">
+                        <h3 class="text-3xl font-semibold text-indigo-950 mb-16">TOTAL PARTICIPENT</h3>
+                            <div class="flex justify-between ">
+                                <div>
+                                    <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{total_participant}} </p>
+                                    <div>
+                                        <div class="flex -space-x-2">
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                    <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                        <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </a>
+                <!-- Total Events -->
+                
+                <a href="{% url "manager-dashboard" %}?type=all">
+                    <div class="bg-orange-200 p-6 rounded-lg shadow-sm shadow-white">
+                        <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">TOTAL EVENTS</h3>
+                            <div class="flex justify-between ">
+                                <div>
+                                    <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.total}} </p>
+                                    <div>
+                                        <div class="flex -space-x-2">
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                                <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                    <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                        <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </a>
+            <!-- UPCOMING Events -->
+            <a href="{% url "manager-dashboard" %}">
+                <div class="bg-yellow-200 p-6 rounded-lg shadow-sm shadow-white">
+                    <h3 class="text-3xl font-semibold text-indigo-950 mb-16">UPCOMING EVENTS</h3>
+                        <div class="flex justify-between ">
+                            <div>
+                                <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.upcoming_events}} </p>
+                                <div>
+                                    <div class="flex -space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                    <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+            </a>
+            <!-- Past Events -->
+            <a href="{% url "manager-dashboard" %}?type=past_events">
+                <div class="bg-blue-200 p-6 rounded-lg shadow-sm shadow-white">
+                    <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">PAST EVENTS</h3>
+                        <div class="flex justify-between ">
+                            <div>
+                                <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.past_events}} </p>
+                                <div>
+                                    <div class="flex -space-x-2">
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                            <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                                <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                    <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+            </a>
+            
+            </div>
+            <!-- Events title -->
+            <div class="overflow-auto rounded-lg md:ps-4 pr-4">   
+                <table class="w-full bg-gray-900 text-white shadow-lg border-separate border-spacing-y-2">
+                    <thead class="border-b-2 border-gray-800">
+        
+                        <tr class="h-12">
+                
+                            <th class=" px-4 py-2">Title</th>
+                            <th class=" border-gray-800 px-4 py-2">Category</th>
+                            <th class=" border-gray-800 px-4 py-2">Date</th>
+                            <th class=" border-gray-800 px-4 py-2">Participent</th>
+                            <th class=" border-gray-800 px-4 py-2">Location</th>
+                            <th class=" border-gray-800 px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center divide-y divide-white ">
+                        {% for event in events %}
+                            <tr class="odd:bg-gray-700 even:bg-gray-600 h-12 text-white">
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.name}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.details.get_types_display}} </td>
+                                <td class="whitespace-nowrap text-sm  p-5 font-semibold "> {{event.schedule}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.participant.all.count}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.location}} </td>
+                                <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
+                                    <a href="{% url "update-events" event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">Edit</a>
+                                    
+                                    <form action=" {% url "delete-events" event.id %} " method= "POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                      
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- Events list: mobile view -->
+             {% comment %}
+            <div class="grid grid-cols-1 gap-4 ps-4">
+                 {% for participent in participents %} 
+                    <div class="p-4 space-y-4 bg-white rounded-lg shadow text-black">
+                        <div class="flex flex-col items-center space-y-0">
+                            <div>
+                                Management market yourself indicate black deep price.
+                            </div>
+                            <div class="font-semibold py-4">  participent.name  </div>
+                            <div class="">ID: 00 participent.id </div>
+                        </div>
+                        <div class="flex space-x-3 justify-around pb-5">
+                            <div>  participent.email  </div>
+                            <div>
+                                <span class="p-1.5 text-xs font-medium uppercase text-green-800 bg-green-200 rounded-lg bg-opacity-70 tracking-widest">active</span>
+                            </div>
+                            <div>Uttarkhan, Dhaka</div>
+                        </div>
+            </div>
+              {% endfor %} {% endcomment %}
+                 
+        </div>
+        </div>
+        
     </div>
 
-    
-    {% comment %} mobile view {% endcomment %}
-
-    
-        <div class="grid grid-cols-1 gap-4 md:hidden">
-            {% for participent in participents %}
-                <div class="p-4 space-y-4 bg-white rounded-lg shadow text-indigo-500">
-                    <div class="flex flex-col items-center space-y-0">
-                        <div class="">
-                            <img src="/static/images/profile-img.jpg" alt="" class="mx-auto w-28 rounded-full">
-                        </div>
-                        <div class="font-semibold py-4"> {{ participent.name }} </div>
-                        <div class="">ID: 00{{participent.id}} </div>
-                    </div>
-                    <div class="flex space-x-3 justify-around pb-5">
-                        <div> {{ participent.email }} </div>
-                        <div>
-                            <span class="p-1.5 text-xs font-medium uppercase text-green-800 bg-green-200 rounded-lg bg-opacity-70 tracking-widest">active</span>
-                        </div>
-                        <div>Uttarkhan, Dhaka</div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    
     
 </body>
 </html>
