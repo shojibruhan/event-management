@@ -5,7 +5,7 @@ from tasks.models import Event, EventDetails, Participant, Category
 class StyleForMixin:
     """Mixin to apply consistent styling to form fields."""
     
-    default_classes = "border border-indigo-800 px-2 py-3 mb-5 rounded-md bg-gray-200 w-full shadow-sm focus:border-rose-500 focus:ring-rose-500"
+    default_classes = "border border-indigo-800 px-2 py-3 mb-5 rounded-md bg-gray-200 w-full shadow-sm focus:border-rose-500 focus:ring-rose-500 text-black"
 
     def apply_styles(self):
         for field_name, field in self.fields.items():
@@ -15,7 +15,7 @@ class StyleForMixin:
                 forms.TextInput: self.default_classes,
                 forms.Textarea: self.default_classes,
                 forms.EmailInput: self.default_classes,  # Fixed EmailField widget issue
-                forms.Select: "border-2 border-indigo-800 mb-2 rounded-lg space-y-2 p-2",
+                forms.Select: "border-2 border-indigo-800 mb-2 rounded-lg space-y-2 p-2 text-black",
                 forms.SelectDateWidget: "border-2 border-gray-300 rounded-lg shadow-sm focus:border-rose-500 focus:ring-rose-500 p-2 mb-5",
                 forms.CheckboxSelectMultiple: "space-y-2",
             }

@@ -117,3 +117,51 @@
 
 
 
+{% comment %} <div>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">  
+        <!-- Name field -->
+        <div class="col-span-2">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+
+        <!-- Category field -->
+        <div>
+            {{ form.category.label_tag }}
+            {{ form.category }}
+        </div>
+
+        <!-- Description field -->
+        <div class="col-span-2">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+
+        <!-- Schedule field -->
+        <div>
+            {{ form.schedule.label_tag }}
+            {{ form.schedule }}
+        </div>
+
+        <!-- Location field -->
+        <div>
+            {{ form.location.label_tag }}
+            {{ form.location }}
+        </div>
+
+        <!-- Participants -->
+        <div class="col-span-2">
+            {{ form.participant.label_tag }}
+            {{ form.participant }}
+        </div>
+    </div>
+
+    <button class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg shadow-md">
+        Submit
+    </button>
+  </form>
+
+</div> {% endcomment %}
