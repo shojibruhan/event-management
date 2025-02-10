@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipentModelForm
+from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipantModelForm
 from tasks.models import Participant, Category, Event, EventDetails
 from datetime import date
 from django.db.models import Q, Max, Min, Avg, Count
@@ -109,7 +109,7 @@ def update_event(request, id):
 
     return render(request, 'dashboard/event-form.html', context)
 
-def view_events(request):
+def view_participents(request):
     # events= Event.objects.all()
     # events= Event.objects.filter(status= "U")
     # events= Event.objects.filter(schedule= date.today())
@@ -136,7 +136,7 @@ def view_events(request):
     participents= Participant.objects.all()
     
 
-    return render(request , "show_event.html", {"participents": participents})
+    return render(request , "show_participents.html", {"participents": participents})
 
 
 
@@ -174,3 +174,8 @@ def search_event(request):
         return render(request, "searched-result.html", {})
     
 
+def test(request):
+    participents= Participant.objects.all()
+    
+
+    return render(request , "test.html", {"participents": participents})

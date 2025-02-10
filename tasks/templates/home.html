@@ -4,101 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href= "{% static 'css/output.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
     <title>Document</title>
 </head>
-<body class="bg-gradient-to-r from-black to-sky-950  w-screen">
-  <!-- hero section -->
-  <header class="bg-[url(/static/images/2.png)] bg-cover sm:min-w-max md:min-h-screen md:p-10">
- 
-      <!-- navbar -->
-      <div class="pb-10 mt-0">
-        <nav class="flex items-center justify-between flex-wrap p-8">
-            <!-- <div class="flex items-center flex-shrink-0 text-indigo-800 mr-6">
-              <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-              
-            </div> -->
-            <div class="block lg:hidden">
-              <button class="flex items-center px-3 py-2 border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
-                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-              </button>
-            </div>
-            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-              <div class="text-sm lg:flex-grow">
-                <a href=" {% url "home" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                  HOME
+<body class="overflow-auto bg-gradient-to-tr from-yellow-200 to-yellow-100 bg-no-repeat">
+   <div class="flex flex-col">
+    <header class="px-4 py-4">
+        <div>
+        
+            <div class="relative max-w-screen-lg bg-transparent mx-auto py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                <a href="{% url "home" %}">
+                    <img src="/static/images/logo.svg" alt="" class="w-12 h-12">
                 </a>
-                <a href=" {% url "manager-dashboard" %} " class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                  DASHBOARD
-                </a>
-                <a href=" {% url "create-events" %} "     class="block lg:inline-block mr-4 lg:ml-10 md:hover:pb-2 hover:text-sky-400 text-sky-600 lg:hover:border-b-2 md:hover:border-white hover:font-bold text-xl">
-                  HOST
-                </a>
-              </div>
-              
-            </div>
-          </nav>
-      </div>
+                <input type="checkbox" name="navbar-id" id="navbar-id" class="peer hidden">
+                <label for="navbar-id" class="sm:hidden md:hidden mt-1 text-xl cursor-pointer absolute self-end" >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                    </svg>
+                </label>
+            
+                
+                <nav class="peer-checked:block hidden sm:block mt-4 py-4 sm:py-0 sm:mt-0 transition-all duration-300">
+                
+                    <ul class="flex flex-col sm:flex-row sm:gap-x-8">
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "home" %}">HOME</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "manager-dashboard" %}">Dashboard</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "create-events" %}">EVENT</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "view-participent" %}">PARTICIPENT</a></li>
+                       
 
-      <div class="grid grid-cols-1 md:grid-cols-2 p-2 sm:space-y-20 md:-mt-20">
-        <div class="text-sky-500 text-5xl p-5 mx-20 my-20 font-bold drop-shadow-lg"><span class="text-9xl ">C</span>reating Lasting<br> <p class="mx-20">Memories</p> </div>
-        <div class="text-white bg-slate-950 rounded-lg mt-0 w-100 p-3 me-5 mx-auto">
-          <p class="text-5xl p-10  font-bold ">GET REGISTERED</p>
-          <div class="grid grid-rows-2">
-            <div class="p-2 mx-auto">
-              <P class="p-2"><span class="text-red-400">* </span> NAME</P>
-              <input type="text" placeholder="Your Name" class="bg-white w-80 p-2 text-black rounded-lg">
-              <P class="p-2"><span class="text-red-400">* </span> EMAIL</P>
-              <input type="text"  class="bg-white w-80 p-2 text-black rounded-lg " placeholder="Your Email">
-              
-          </div>
-          <div class="ml-48">
-            <input type="submit" value="Sign In" class="bg-sky-600 hover:bg-green-950  w-20 h-10 rounded-full mt-10 ml-50 shadow-lg mb-20">
-          </div>
-          </div>
+                    </ul>
+                </nav> 
+            </div>
+       
+            <div class="absolute top-0 right-0 opacity-40 z-[-1] w-screen min-h-screen">
+                <img src="/static/images/banner.png" alt="" class="w-full h-full object-cover">
+            </div>
         </div>
-      </div>
- 
-  </header>
+    </header>
+       <div class="sm:mt-20 lg:mt-48 ml-36 flex flex-row">
+        <div class="">
+            <p class="text-sm px-4">Crafting unforgettable experiences</p>
+            <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
+            <p class="w-72">the process of planning, organizing, and 
+                executing events like conferences, concerts, or corporate gatherings, which involves selecting venues, managing logistics, coordinating vendors, and ensuring a smooth event flow from start to finish</p>
+        </div>
+       </div>
 
-   <!-- event list sectiion -->
-    <main>
-      {% for event in events %}
-        <div class="grid grid-cols-1 md:grid-cols-3 text-black bg-white px-1 py-1 sm:px-3 sm:py-3 md:px-5 md:py-5 rounded-lg mt-5 sm:mt-10 md:mt-20 mb-10 w-20 sm:w-3/4 md:w-150 mx-20 ">
-          <!-- picture column -->
-          <div>
-            <img src="/static/images/cart-img.svg" class="p-1 sm:p-3 md:p-5 sm:w-80 sm:h-80 sm:ml-20 md:ml-0">
-          </div>
-          <!-- Details column -->
-          <div class="col-span-2 sm:px-20 md:px-0">
+       <main>
+            <div class="mt-56 mb-20">
+                <div class="text-center">
+                    <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">Featured Works</p>
+                </div>
+                <!--cart item-->
+                <div>
+                    <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-5 px-20">
+                      {% for event in events %}
+                        <div class="bg-white rounded-lg shadow-2xl h-full flex flex-col md:flex-row lg:flex-col">
+                          <div class="relative">
+                              <img src="/static/images/bg-parti.avif" alt="" class="w-full h-48 object-cover rounded-t-lg px-0.5">
+                              <div class="absolute top-0 left-0.5 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-md">
+                                  <p>Date</p>
+                                  <p> {{event.schedule}} </p>
+                              </div>
+                          </div>
+                          <div class="text-center text-amber-950 flex-grow flex flex-col justify-between">
+                          
+                              <p class="font-bold text-xl mb-10 p-2"> {{event.name}} </p>
+                              <p class="mb-10 text-start p-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nesciunt exercitationem placeat quos consequatur, ducimus, vero neque inventore in quas molestias aliquid nihil ut maxime illo cupiditate nulla dignissimos autem?</p>
+                          </div>
+                      </div>
+                      {% endfor %}
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+
+                <!--Client Featured-->
+                <div class="mt-44">
+                    <div class="text-center">
+                        <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">What Our Client Say</p>
+                    </div>
+                    <div>
+                        <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-5 px-20">
+                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                                
+                                <div class="w-screen h-full">
+                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                                </div>
+                                
+                            </div>
+                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                                
+                                <div class="w-screen h-full">
+                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                                </div>
+                                
+                            </div>
+                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                                
+                                <div class="w-screen h-full">
+                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                                </div>
+                                
+                            </div>
+                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                                
+                                <div class="w-screen h-full">
+                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                    
+                   
+            </div>
+       </main>
+
+       <footer class="bg-slate-900 font-semibold font-mono text-white py-28">
+        <div class="flex gap-4 justify-around">
             <div>
-              <p class="font-bold text-2xl mb-2"> {{event.name}} </p>
-              <div>
-                <p> {{event.category}} </p>
-                <p class="text-white px-3 py-1 bg-sky-600 rounded-lg w-40 mt-5 mb-5"> {{event.details.get_types_display}} </p>
-              </div>
+                <div class="text-lg font-bold font-sans">Event Management</div>
+                <div class="w-56 mt-6">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ea adipisci quo praesentium fuga mollitia.
+                </div>
+                <div class="flex gap-4 mt-5 p-1">
+                    
+                    
+                        <p>
+                            <a href="#">
+                                <img src="/static/images/messenger.svg" alt="" class="w-6 h-6">
+                            </a>
+                        </p>
+                    
+                    
+                    <p>
+                        <a href="#">
+                            <img src="/static/images/twitter.svg" alt="" class="w-6 h-6">
+                        </a>
+                    </p>
+                    
+                    
+                    <p>
+                        <a href="#">
+                            <img src="/static/images/youtube.svg" alt="" class="w-6 h-6">
+                        </a>
+                    </p>
+                    
+                </div>
             </div>
             <div>
-              <p> {{event.description}} </p>
-            </div>
-            <div class="grid sm:grid-rows-2 md:grid-cols-2 -mb-1 sm:justify-around sm:space-y-0.5">
-              <div>
-                <p class="text-white px-3 py-1 bg-sky-600 rounded-lg w-40 mt-20">Date: {{event.schedule}} </p>
+                <div>Menu:</div>
+                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">HOME</a> </p>
+                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Dashboard</a> </p>
+                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Events</a> </p>
+                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Gallery</a> </p>
+                    
+                
                 
             </div>
             <div>
-                <p class="text-white  px-3 py-1 bg-sky-600 rounded-lg sm:w-40 md:w-50 lg:w-50 sm:text-sm md:text-lg mt-2 sm:mt-5 md:mt-20">Venue: {{event.location}} </p>
-                
+                <div>Video</div>
+                <div>Gallery</div>
+                <div>Blog</div>
+                <div>Review</div>
             </div>
+            <div>
+                <div class="text-2xl mb-10">Contact US</div>
+                <div class="text-lg">
+                    <p>House: 1, Road: 1</p>
+                    <p>Dhaka, Bangladesh</p>
+                    <p>Mobile: 01XXXXXXXX</p>
+                    <p>event@gmail.com</p>
+                </div>
             </div>
-          </div>
         </div>
-
-      {% endfor %}
-      
-
-    </main>
-    
+       </footer>
+       
+   </div>
 </body>
 </html>
 
