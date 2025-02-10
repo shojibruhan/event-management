@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipentModelForm
+from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipantModelForm
 from tasks.models import Participant, Category, Event, EventDetails
 from datetime import date
 from django.db.models import Q, Max, Min, Avg, Count

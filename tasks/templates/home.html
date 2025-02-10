@@ -9,27 +9,40 @@
 </head>
 <body class="overflow-auto bg-gradient-to-tr from-yellow-200 to-yellow-100 bg-no-repeat">
    <div class="flex flex-col">
-    <header class="px-16 py-8">
-        <div class="flex justify-between items-center">
-            <div>
+    <header class="px-4 py-4">
+        <div>
+        
+            <div class="relative max-w-screen-lg bg-transparent mx-auto py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center">
                 <a href="{% url "home" %}">
                     <img src="/static/images/logo.svg" alt="" class="w-12 h-12">
                 </a>
+                <input type="checkbox" name="navbar-id" id="navbar-id" class="peer hidden">
+                <label for="navbar-id" class="sm:hidden md:hidden mt-1 text-xl cursor-pointer absolute self-end" >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                    </svg>
+                </label>
+            
+                
+                <nav class="peer-checked:block hidden sm:block mt-4 py-4 sm:py-0 sm:mt-0 transition-all duration-300">
+                
+                    <ul class="flex flex-col sm:flex-row sm:gap-x-8">
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "home" %}">HOME</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "manager-dashboard" %}">Dashboard</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "create-events" %}">EVENT</a></li>
+                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "view-participent" %}">PARTICIPENT</a></li>
+                       
+
+                    </ul>
+                </nav> 
             </div>
-        <div class="space-x-8 font-bold text-yellow-950">
-            <a href="{% url "home" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Home</a>
-            <a href="{% url "manager-dashboard" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Dashboard</a>
-            <a href="{% url "create-events" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Event</a>
-            <a href="{% url "view-participent" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Host</a>
-            
-            
+       
+            <div class="absolute top-0 right-0 opacity-40 z-[-1] w-screen min-h-screen">
+                <img src="/static/images/banner.png" alt="" class="w-full h-full object-cover">
+            </div>
         </div>
-        <div class="absolute top-0 right-0 opacity-40 z-[-1]">
-            <img src="/static/images/banner.png" alt="" class="w-screen h-screen">
-        </div>
-        </div>
-       </header>
-       <div class="mt-48 ml-36 flex flex-row">
+    </header>
+       <div class="sm:mt-20 lg:mt-48 ml-36 flex flex-row">
         <div class="">
             <p class="text-sm px-4">Crafting unforgettable experiences</p>
             <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
@@ -39,15 +52,15 @@
        </div>
 
        <main>
-            <div class="mt-32 mb-20">
+            <div class="mt-56 mb-20">
                 <div class="text-center">
                     <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">Featured Works</p>
                 </div>
                 <!--cart item-->
                 <div>
-                    <div class="grid grid-cols-3 gap-5 px-20">
+                    <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-5 px-20">
                       {% for event in events %}
-                        <div class="bg-white rounded-lg shadow-2xl h-full flex flex-col">
+                        <div class="bg-white rounded-lg shadow-2xl h-full flex flex-col md:flex-row lg:flex-col">
                           <div class="relative">
                               <img src="/static/images/bg-parti.avif" alt="" class="w-full h-48 object-cover rounded-t-lg px-0.5">
                               <div class="absolute top-0 left-0.5 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-md">
@@ -75,7 +88,7 @@
                         <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">What Our Client Say</p>
                     </div>
                     <div>
-                        <div class="grid grid-cols-2 gap-5 px-20">
+                        <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-5 px-20">
                             <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
                                 
                                 <div class="w-screen h-full">
