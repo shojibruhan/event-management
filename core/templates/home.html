@@ -31,7 +31,13 @@
                         <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "manager-dashboard" %}">Dashboard</a></li>
                         <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "create-events" %}">EVENT</a></li>
                         <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "view-participent" %}">PARTICIPENT</a></li>
-                       
+                        <form action="{% url "sign-out" %}" method="POST">
+                            {% csrf_token %}
+                            {% if user.is_authenticated %}
+                            <button type="submit">Log Out</button>
+                        
+                            {% endif %}
+                        </form>
 
                     </ul>
                 </nav> 
@@ -45,7 +51,12 @@
        <div class="sm:mt-20 lg:mt-48 ml-36 flex flex-row">
         <div class="">
             <p class="text-sm px-4">Crafting unforgettable experiences</p>
-            <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
+            {% if user.is_authenticated %}
+                <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Hello {{user}} <br> Welcome Home</p>
+                {% else %}
+                    <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
+                    <p>Annonimus</p>
+            {% endif %}
             <p class="w-72">the process of planning, organizing, and 
                 executing events like conferences, concerts, or corporate gatherings, which involves selecting venues, managing logistics, coordinating vendors, and ensuring a smooth event flow from start to finish</p>
         </div>
@@ -206,3 +217,4 @@
 </body>
 </html>
 
+ 

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <title>Document</title>
+</head>
+<body class="bg-gradient-to-r from-yellow-200 to-yellow-500">
+    <h1 class="text-5xl text-center mt-10 mb-10 font-mono font-semibold">Sign In</h1>
+
+    <div class="w-1/4 flex flex-col mx-auto px-20 py-20 bg-gray-300 rounded-lg shadow-md">
+        <form method="POST">
+            {% csrf_token %}
+
+            <p class="font-serif font-bold">Username: <input type="text" placeholder="Enter Your Username" class="border-2 border-black px-2 py-1 rounded-md mb-3" name="username"></p>
+            <p class="font-serif font-bold">Password:  <input type="password" placeholder="*********  " class="border-2 border-black px-2 py-1 rounded-md" name="password"></p>
+
+
+            <button type="submit" class="bg-blue-600 px-6 py-2 text-white rounded-md shadow-sm mt-10 ml-[20%]">Sign In</button>
+        </form>
+    </div>
+    
+</body>
+</html>
