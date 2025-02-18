@@ -70,3 +70,4 @@ class EventDetails(models.Model):
 
     def __str__(self):
         return f"Details for the Events {self.events.name}"
+    
