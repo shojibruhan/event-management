@@ -1,0 +1,19 @@
+<div class="relative max-w-screen-lg bg-transparent mx-auto py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+    <a href="{% url "home" %}">
+        <img src="/static/images/logo.svg" alt="" class="w-12 h-12">
+    </a>
+    <input type="checkbox" name="navbar-id" id="navbar-id" class="peer hidden">
+    <label for="navbar-id" class="sm:hidden md:hidden mt-1 text-xl cursor-pointer absolute self-end" >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+        </svg>
+    </label>
+
+    
+    <nav class="peer-checked:block hidden sm:block mt-4 py-4 sm:py-0 sm:mt-0 transition-all duration-300">
+    <div class="grid grid-cols-2 gap-16">
+        <p><a href="{% url "sign-up" %}" class="px-3 py-1 border-red-800 border-2 rounded-md font-semibold text-lime-800 shadow-lg">Create an Account</a></p>
+        <p><a href="{% url "sign-in" %}" class="px-3 py-1 border-red-800 border-2 rounded-md font-semibold text-lime-800 shadow-lg">Sign In</a></p>
+    </div>
+    </nav> 
+</div>

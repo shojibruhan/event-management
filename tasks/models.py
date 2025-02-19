@@ -65,6 +65,7 @@ class EventDetails(models.Model):
         Event, 
         on_delete=models.CASCADE,
         related_name='details')
+    asset= models.ImageField(upload_to='tasks_asset', blank=True, null= True, default='tasks_asset/default.jpg')
     types= models.CharField(max_length=1, choices=OPTIONS)    
     participent= models.CharField(max_length=250)
 

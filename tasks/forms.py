@@ -53,7 +53,7 @@ class EventDetailsModelForm(StyleForMixin, forms.ModelForm):
 
     class Meta:
         model = EventDetails
-        fields = ['types']
+        fields = ['types', 'asset']
 
     
 

@@ -6,6 +6,7 @@ from datetime import date
 from django.db.models import Q, Max, Min, Avg, Count
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
+from users.views import is_admin
 
 
 
@@ -60,7 +61,7 @@ def managerdashboard(request):
     }
 
 
-    return render(request, 'dashboard/manager-dashboard.html', context)
+    return render(request, 'dashboard/event_list.html', context)
 
 
 def participent_dashboard(request):
@@ -81,7 +82,7 @@ def create_events(request):
     if request.method == 'POST':
         
         event_form= EventModelForm(request.POST)
-        event_details_form= EventDetailsModelForm(request.POST)
+        event_details_form= EventDetailsModelForm(request.POST, request.FILES)
         if event_form.is_valid() and event_details_form.is_valid():
             event= event_form.save()
             event_details= event_details_form.save(commit=False)
@@ -173,9 +174,37 @@ def search_event(request):
         
         return render(request, "searched-result.html", {})
     
-
+ 
 def test(request):
     participents= Participant.objects.all()
     
 
     return render(request , "test.html", {"participents": participents})
+
+@login_required
+@permission_required('tasks.view_event', login_url='no-permission')
+def event_details(request, event_id):
+    event= Event.objects.get(id= event_id)
+    status_choices= Event.STATUS_CHOICES
+
+    if request.method == "POST":
+        selected_status= request.POST.get('event_status')
+        print(selected_status)
+        event.status= selected_status
+        event.save()
+
+        return redirect("event-details", event.id)
+
+    return render(request, "event_details.html", {"event": event, "status_choices": status_choices})
+
+
+@login_required
+def dashboard(request):
+    if is_admin(request.user):
+        return redirect('admin-dashboard')
+    elif is_manager(request.user):
+        return redirect('manager-dashboard')
+    elif is_participent(request.user):
+        return redirect('admin-dashboard')
+    
+    return redirect('no-permission')

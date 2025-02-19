@@ -1,0 +1,173 @@
+{% extends "dashboard/dashboard.html" %}
+{% block dashboard-content %}
+<div class="flex-auto bg-gray-900 sm:ps-28 md:ps-48">
+    <!-- cart items -->
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 mt-24">
+         <!-- Total Participent -->
+        <a href="{% url "view-participent" %}?type=total_participant">
+            <div class="bg-lime-200 p-6 rounded-lg shadow-sm shadow-white">
+                <h3 class="text-3xl font-semibold text-indigo-950 mb-16">TOTAL PARTICIPENT</h3>
+                    <div class="flex justify-between ">
+                        <div>
+                            <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{total_participant}} </p>
+                            <div>
+                                <div class="flex -space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                            <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+            </div>
+        </a>
+        <!-- Total Events -->
+        
+        <a href="{% url "manager-dashboard" %}?type=all">
+            <div class="bg-orange-200 p-6 rounded-lg shadow-sm shadow-white">
+                <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">TOTAL EVENTS</h3>
+                    <div class="flex justify-between ">
+                        <div>
+                            <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.total}} </p>
+                            <div>
+                                <div class="flex -space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                        <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                            <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                                <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+            </div>
+        </a>
+    <!-- UPCOMING Events -->
+    <a href="{% url "manager-dashboard" %}">
+        <div class="bg-yellow-200 p-6 rounded-lg shadow-sm shadow-white">
+            <h3 class="text-3xl font-semibold text-indigo-950 mb-16">UPCOMING EVENTS</h3>
+                <div class="flex justify-between ">
+                    <div>
+                        <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.upcoming_events}} </p>
+                        <div>
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                        <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                            <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                        </div>
+                    </div>
+                    
+                </div>
+        </div>
+    </a>
+    <!-- Past Events -->
+    <a href="{% url "manager-dashboard" %}?type=past_events">
+        <div class="bg-blue-200 p-6 rounded-lg shadow-sm shadow-white">
+            <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">PAST EVENTS</h3>
+                <div class="flex justify-between ">
+                    <div>
+                        <p class="text-9xl font-semibold mb-8 text-indigo-950"> {{counts.past_events}} </p>
+                        <div>
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex justify-center items-center text-sm border-2 border-white">
+                                    <img src="/static/images/profile-img.jpg" alt="" class="w-6 h-6 rounded-full">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <p class="text-lg text-gray-800 mt-2">Increased Rate:</p>
+                        <div class="bg-purple-300 w-44 h-6 rounded-full border-2 border-gray-300">
+                            <div class="bg-purple-500 w-[70%] h-full rounded-lg text-sm text-white font-bold flex justify-center ">70%</div>
+                        </div>
+                    </div>
+                    
+                </div>
+        </div>
+    </a>
+    
+    </div>
+    <!-- Events title -->
+    <div class="overflow-auto rounded-lg md:ps-4 pr-4">   
+        <table class="w-full bg-gray-900 text-white shadow-lg border-separate border-spacing-y-2">
+            <thead class="border-b-2 border-gray-800">
+
+                <tr class="h-12">
+        
+                    <th class=" px-4 py-2">Title</th>
+                    <th class=" border-gray-800 px-4 py-2">Category</th>
+                    <th class=" border-gray-800 px-4 py-2">Date</th>
+                    <th class=" border-gray-800 px-4 py-2">Participent</th>
+                    <th class=" border-gray-800 px-4 py-2">Location</th>
+                    <th class=" border-gray-800 px-4 py-2">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-start divide-y divide-white ">
+                {% for event in events %}
+                    <tr class="odd:bg-gray-700 even:bg-gray-600 h-12 text-white ">
+                        <td class="whitespace-nowrap text-sm font-medium  p-5"> 
+                            <a href="{% url "event-details" event.id %}"> {{event.name}} </a>    
+                        </td>
+                        <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.details.get_types_display}} </td>
+                        <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.schedule}} </td>
+                        <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.participant.all.count}} </td>
+                        <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.location}} </td>
+                        <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
+                            <a href="{% url "update-events" event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">Edit</a>
+                            
+                            <form action=" {% url "delete-events" event.id %} " method= "POST">
+                                {% csrf_token %}
+                                <button type="submit" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+              
+                
+            </tbody>
+        </table>
+    </div>
+ 
+         
+</div>
+
+{% endblock dashboard-content %}

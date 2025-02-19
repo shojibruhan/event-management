@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Document</title>
+</head>
+<body class="overflow-auto bg-gradient-to-tr from-yellow-200 to-yellow-100 bg-no-repeat">
+   <div class="flex flex-col">
+        <!--  header -->
+
+        <header class="px-4 py-4">
+            <div>
+            {% if request.user.is_authenticated %}
+                {% include "user_navbar.html" %}
+            {% else %}
+                {% include "guest_navbar.html" %}
+            {% endif %}
+        
+                <div class="absolute top-0 right-0 opacity-40 z-[-1] w-screen min-h-screen">
+                    <img src="/static/images/banner.png" alt="" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </header>
+        <div>
+        {% block content %}
+        
+        {% endblock content %}
+        </div>
+        <!--  footer --> 
+        <footer class="bg-slate-900 font-semibold font-mono text-white py-28">
+            <div class="flex gap-4 justify-around">
+                <div>
+                    <div class="text-lg font-bold font-sans">Event Management</div>
+                    <div class="w-56 mt-6">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ea adipisci quo praesentium fuga mollitia.
+                    </div>
+                    <div class="flex gap-4 mt-5 p-1">
+                        
+                        
+                            <p>
+                                <a href="#">
+                                    <img src="/static/images/messenger.svg" alt="" class="w-6 h-6">
+                                </a>
+                            </p>
+                        
+                        
+                        <p>
+                            <a href="#">
+                                <img src="/static/images/twitter.svg" alt="" class="w-6 h-6">
+                            </a>
+                        </p>
+                        
+                        
+                        <p>
+                            <a href="#">
+                                <img src="/static/images/youtube.svg" alt="" class="w-6 h-6">
+                            </a>
+                        </p>
+                        
+                    </div>
+                </div>
+                <div>
+                    <div>Menu:</div>
+                    <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">HOME</a> </p>
+                    <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Dashboard</a> </p>
+                    <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Events</a> </p>
+                    <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Gallery</a> </p>
+                        
+                    
+                    
+                </div>
+                <div>
+                    <div>Video</div>
+                    <div>Gallery</div>
+                    <div>Blog</div>
+                    <div>Review</div>
+                </div>
+                <div>
+                    <div class="text-2xl mb-10">Contact US</div>
+                    <div class="text-lg">
+                        <p>House: 1, Road: 1</p>
+                        <p>Dhaka, Bangladesh</p>
+                        <p>Mobile: 01XXXXXXXX</p>
+                        <p>event@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+       
+   </div>
+</body>
+</html>
+
+ 

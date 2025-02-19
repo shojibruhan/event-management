@@ -1,0 +1,80 @@
+<!-- large screen -->
+<div class="fixed top-0 left-0 h-screen w-48 bg-gray-800 p-5 hidden shadow-2xl text-white font-semibold uppercase  md:block">
+    <div class="flex flex-col mt-4 space-y-6">
+        <div>
+            <button class="flex items-center  border sm:border-none rounded text-teal-200 border-teal-400 hover:text-white md:hover:border-white">
+                <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+              </button>
+        </div>
+        <a href="{% url "home" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Home</a>
+        <a href="{% url "manager-dashboard" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">dashboard</a>
+        <a href="{% url "create-events" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">Host event</a>
+        <a href="{% url "view-participent" %}" class="hover:font-bold hover:text-red-600 hover:p-1 hover:border-b-white">participents</a>
+        
+       
+    </div>
+</div>
+<!-- mobile view nav bar -->
+<div class="fixed top-0 left-0 h-screen w-24 bg-gray-800 p-3 text-white md:hidden" >
+    <div class="flex flex-col mt-4 space-y-12">
+
+        
+        <button class="mx-auto text-white">
+            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+    
+        
+        <a href="{% url "home" %}">
+            <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                <span class="items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                    </svg>
+            </span>
+            </div>
+        </a>
+        <a href="{% url "manager-dashboard" %}">
+            <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                <span class="items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                    </svg>
+                      
+            </span>
+            </div>
+        </a>
+        <a href="{% url "create-events" %}">
+            <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                <span class="items-center">
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 16 16" 
+                        fill="currentColor" 
+                        class="size-5">
+                        <path fill-rule="evenodd" d="M11.986 3H12a2 2 0 0 1 2 2v6a2 2 0 0 1-1.5 1.937V7A2.5 2.5 0 0 0 10 4.5H4.063A2 2 0 0 1 6 3h.014A2.25 2.25 0 0 1 8.25 1h1.5a2.25 2.25 0 0 1 2.236 2ZM10.5 4v-.75a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0-.75.75V4h3Z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M3 6a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H3Zm1.75 2.5a.75.75 0 0 0 0 1.5h3.5a.75.75 0 0 0 0-1.5h-3.5ZM4 11.75a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                      
+                </span>
+            </div>
+        </a>
+       
+          
+        <a href="{% url "view-participent" %}">
+            <div class="bg-gray-700 w-10 h-10 rounded-full mx-auto px-2 py-2 shadow-md">
+                <span class="items-center">
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 16 16" 
+                        fill="currentColor" 
+                        class="size-6">
+                        <path d="M8.5 4.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 13c.552 0 1.01-.452.9-.994a5.002 5.002 0 0 0-9.802 0c-.109.542.35.994.902.994h8ZM12.5 3.5a.75.75 0 0 1 .75.75v1h1a.75.75 0 0 1 0 1.5h-1v1a.75.75 0 0 1-1.5 0v-1h-1a.75.75 0 0 1 0-1.5h1v-1a.75.75 0 0 1 .75-.75Z" />
+                      </svg>
+                      
+                </span>
+            </div>
+        </a>
+        
+        
+    </div>
+</div>

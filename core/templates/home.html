@@ -1,220 +1,109 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <title>Document</title>
-</head>
-<body class="overflow-auto bg-gradient-to-tr from-yellow-200 to-yellow-100 bg-no-repeat">
-   <div class="flex flex-col">
-    <header class="px-4 py-4">
-        <div>
-        
-            <div class="relative max-w-screen-lg bg-transparent mx-auto py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                <a href="{% url "home" %}">
-                    <img src="/static/images/logo.svg" alt="" class="w-12 h-12">
-                </a>
-                <input type="checkbox" name="navbar-id" id="navbar-id" class="peer hidden">
-                <label for="navbar-id" class="sm:hidden md:hidden mt-1 text-xl cursor-pointer absolute self-end" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-                    </svg>
-                </label>
-            
-                
-                <nav class="peer-checked:block hidden sm:block mt-4 py-4 sm:py-0 sm:mt-0 transition-all duration-300">
-                
-                    <ul class="flex flex-col sm:flex-row sm:gap-x-8">
-                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "home" %}">HOME</a></li>
-                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "manager-dashboard" %}">Dashboard</a></li>
-                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "create-events" %}">EVENT</a></li>
-                        <li class="sm:mt-2 text-teal-900 hover:font-bold hover:text-red-600 font-medium"><a href="{% url "view-participent" %}">PARTICIPENT</a></li>
-                        <form action="{% url "sign-out" %}" method="POST">
-                            {% csrf_token %}
-                            {% if user.is_authenticated %}
-                            <button type="submit">Log Out</button>
-                        
-                            {% endif %}
-                        </form>
+{% extends "base.html" %}
+{% block content %}
+<div class="sm:mt-20 lg:mt-48 ml-36 flex flex-row">
+    <div class="">
+        <p class="text-sm px-4">Crafting unforgettable experiences</p>
+        {% if user.is_authenticated %}
+            <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Hello {{user}} <br> Welcome Home</p>
+            {% else %}
+                <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
+                <p>Annonimus</p>
+        {% endif %}
+        <p class="w-72">the process of planning, organizing, and 
+            executing events like conferences, concerts, or corporate gatherings, which involves selecting venues, managing logistics, coordinating vendors, and ensuring a smooth event flow from start to finish</p>
+    </div>
+</div>
+<!--  main -->
 
-                    </ul>
-                </nav> 
+<main>
+        <div class="mt-56 mb-20">
+            <div class="text-center">
+                <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">Featured Works</p>
             </div>
-       
-            <div class="absolute top-0 right-0 opacity-40 z-[-1] w-screen min-h-screen">
-                <img src="/static/images/banner.png" alt="" class="w-full h-full object-cover">
+            <!--cart item-->
+            <div>
+                <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-5 px-20">
+                {% for event in events %}
+                    <div class="bg-white rounded-lg shadow-2xl h-full flex flex-col md:flex-row lg:flex-col">
+                    <div class="relative">
+                        <img src="/static/images/bg-parti.avif" alt="" class="w-full h-48 object-cover rounded-t-lg px-0.5">
+                        <div class="absolute top-0 left-0.5 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-md">
+                            <p>Date</p>
+                            <p> {{event.schedule}} </p>
+                        </div>
+                    </div>
+                    <div class="text-center text-amber-950 flex-grow flex flex-col justify-between">
+                    
+                        <p class="font-bold text-xl mb-10 p-2"> {{event.name}} </p>
+                        <p class="mb-10 text-start p-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nesciunt exercitationem placeat quos consequatur, ducimus, vero neque inventore in quas molestias aliquid nihil ut maxime illo cupiditate nulla dignissimos autem?</p>
+                    </div>
+                </div>
+                {% endfor %}
+                    
+                    
+                    
+                    
+                </div>
             </div>
-        </div>
-    </header>
-       <div class="sm:mt-20 lg:mt-48 ml-36 flex flex-row">
-        <div class="">
-            <p class="text-sm px-4">Crafting unforgettable experiences</p>
-            {% if user.is_authenticated %}
-                <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Hello {{user}} <br> Welcome Home</p>
-                {% else %}
-                    <p class="font-extrabold text-5xl mb-3 text-teal-800 font-mono">Where moments <br> become magic</p>
-                    <p>Annonimus</p>
-            {% endif %}
-            <p class="w-72">the process of planning, organizing, and 
-                executing events like conferences, concerts, or corporate gatherings, which involves selecting venues, managing logistics, coordinating vendors, and ensuring a smooth event flow from start to finish</p>
-        </div>
-       </div>
 
-       <main>
-            <div class="mt-56 mb-20">
+            <!--Client Featured-->
+            <div class="mt-44">
                 <div class="text-center">
-                    <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">Featured Works</p>
+                    <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">What Our Client Say</p>
                 </div>
-                <!--cart item-->
                 <div>
-                    <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-5 px-20">
-                      {% for event in events %}
-                        <div class="bg-white rounded-lg shadow-2xl h-full flex flex-col md:flex-row lg:flex-col">
-                          <div class="relative">
-                              <img src="/static/images/bg-parti.avif" alt="" class="w-full h-48 object-cover rounded-t-lg px-0.5">
-                              <div class="absolute top-0 left-0.5 bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-md">
-                                  <p>Date</p>
-                                  <p> {{event.schedule}} </p>
-                              </div>
-                          </div>
-                          <div class="text-center text-amber-950 flex-grow flex flex-col justify-between">
-                          
-                              <p class="font-bold text-xl mb-10 p-2"> {{event.name}} </p>
-                              <p class="mb-10 text-start p-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto nesciunt exercitationem placeat quos consequatur, ducimus, vero neque inventore in quas molestias aliquid nihil ut maxime illo cupiditate nulla dignissimos autem?</p>
-                          </div>
-                      </div>
-                      {% endfor %}
-                        
-                        
-                        
-                        
-                    </div>
-                </div>
-
-                <!--Client Featured-->
-                <div class="mt-44">
-                    <div class="text-center">
-                        <p class="text-5xl mb-32 text-center shadow-2xl text-indigo-900 font-mono font-bold border-dotted border-b-4  border-b-teal-950 inline-block pb-2">What Our Client Say</p>
-                    </div>
-                    <div>
-                        <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-5 px-20">
-                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
-                                
-                                <div class="w-screen h-full">
-                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
-                                </div>
-                                <div>
-                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
-                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
-                                </div>
-                                
+                    <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-5 px-20">
+                        <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                            
+                            <div class="w-screen h-full">
+                                <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
                             </div>
-                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
-                                
-                                <div class="w-screen h-full">
-                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
-                                </div>
-                                <div>
-                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
-                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
-                                </div>
-                                
-                            </div>
-                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
-                                
-                                <div class="w-screen h-full">
-                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
-                                </div>
-                                <div>
-                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
-                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
-                                </div>
-                                
-                            </div>
-                            <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
-                                
-                                <div class="w-screen h-full">
-                                    <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
-                                </div>
-                                <div>
-                                    <p class="text-9xl text-red-700 font-serif leading-none">"</p>
-                                    <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
-                                </div>
-                                
+                            <div>
+                                <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
                             </div>
                             
                         </div>
+                        <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                            
+                            <div class="w-screen h-full">
+                                <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                            </div>
+                            <div>
+                                <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                            </div>
+                            
+                        </div>
+                        <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                            
+                            <div class="w-screen h-full">
+                                <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                            </div>
+                            <div>
+                                <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                            </div>
+                            
+                        </div>
+                        <div class="flex gap-4 px-5 items-center bg-yellow-200 rounded-lg shadow-lg">
+                            
+                            <div class="w-screen h-full">
+                                <img src="/static/images/profile-img.jpg" alt="" class=" w-full h-full object-cover rounded-lg">
+                            </div>
+                            <div>
+                                <p class="text-9xl text-red-700 font-serif leading-none">"</p>
+                                <p class="text-xs text-teal-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae repellendus consequuntur, quisquam minus repellat voluptas soluta, minima hic assumenda harum nihil fuga blanditiis placeat cupiditate dicta ratione vel accusantium quo ullam aperiam fugit asperiores quam. Nulla blanditiis odio sint laborum, nihil, facere nobis quae unde itaque assumenda aspernatur hic nemo.</p>
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                 </div>
-                    
-                   
             </div>
-       </main>
-
-       <footer class="bg-slate-900 font-semibold font-mono text-white py-28">
-        <div class="flex gap-4 justify-around">
-            <div>
-                <div class="text-lg font-bold font-sans">Event Management</div>
-                <div class="w-56 mt-6">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro ea adipisci quo praesentium fuga mollitia.
-                </div>
-                <div class="flex gap-4 mt-5 p-1">
-                    
-                    
-                        <p>
-                            <a href="#">
-                                <img src="/static/images/messenger.svg" alt="" class="w-6 h-6">
-                            </a>
-                        </p>
-                    
-                    
-                    <p>
-                        <a href="#">
-                            <img src="/static/images/twitter.svg" alt="" class="w-6 h-6">
-                        </a>
-                    </p>
-                    
-                    
-                    <p>
-                        <a href="#">
-                            <img src="/static/images/youtube.svg" alt="" class="w-6 h-6">
-                        </a>
-                    </p>
-                    
-                </div>
-            </div>
-            <div>
-                <div>Menu:</div>
-                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">HOME</a> </p>
-                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Dashboard</a> </p>
-                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Events</a> </p>
-                <p> <a href="#" class="hover:text-yellow-200 hover:p-1 hover:underline mb-3 py-3 px-2">Gallery</a> </p>
-                    
                 
-                
-            </div>
-            <div>
-                <div>Video</div>
-                <div>Gallery</div>
-                <div>Blog</div>
-                <div>Review</div>
-            </div>
-            <div>
-                <div class="text-2xl mb-10">Contact US</div>
-                <div class="text-lg">
-                    <p>House: 1, Road: 1</p>
-                    <p>Dhaka, Bangladesh</p>
-                    <p>Mobile: 01XXXXXXXX</p>
-                    <p>event@gmail.com</p>
-                </div>
-            </div>
+            
         </div>
-       </footer>
-       
-   </div>
-</body>
-</html>
+</main>
 
- 
+{% endblock content %}
