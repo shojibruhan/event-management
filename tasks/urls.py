@@ -1,4 +1,4 @@
-from tasks.views import search_event, managerdashboard, view_participents, user_dashboard, dashboard, create_events, delete_event, update_event, test
+from tasks.views import search_event, managerdashboard, view_participents, participent_dashboard, dashboard, create_events, delete_event, update_event, test
 from django.urls import path
 from core.views import home
 
@@ -8,7 +8,7 @@ urlpatterns = [
     # path("events-dashboard/", search_event, name='events-dashboard'),
     path("searched-result/", search_event, name='searched-result'),
     path("manager-dashboard/", managerdashboard, name='manager-dashboard'),
-    path("user-dashboard/", user_dashboard, name="user-dashboard"),
+    path("participent-dashboard/", participent_dashboard, name="participent-dashboard"),
     path("dashboard/", dashboard),
     path("create-events/", create_events, name="create-events"),
     path("update-events/<int:id>/", update_event, name="update-events"),

@@ -22,7 +22,8 @@ class StyleForMixin:
                 forms.Select: "border-2 border-indigo-800 mb-2 rounded-lg space-y-2 p-2 text-black",
                 forms.SelectDateWidget: "border-2 border-gray-300 rounded-lg shadow-sm focus:border-rose-500 focus:ring-rose-500 p-2 mb-5",
                 forms.CheckboxSelectMultiple: "space-y-2",
-                forms.PasswordInput: self.default_classes
+                forms.PasswordInput: self.default_classes,
+                forms.ModelChoiceField: self.default_classes
             }
 
             for widget_type, css_class in widget_classes.items():

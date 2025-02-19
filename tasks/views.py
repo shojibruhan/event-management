@@ -5,6 +5,17 @@ from tasks.models import Participant, Category, Event, EventDetails
 from datetime import date
 from django.db.models import Q, Max, Min, Avg, Count
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
+
+
+
+def is_manager(user):
+    return user.groups.filter(name="Manager").exists()
+
+def is_participent(user):
+    return user.groups.filter(name="Participent").exists()
+
+
 
 def home(request):
     events= Event.objects.all()
@@ -17,6 +28,7 @@ def home(request):
 def events_dashboard(request):
     return render(request, "events.html")
 
+@user_passes_test(is_manager, login_url='no-permission')
 def managerdashboard(request):
     type= request.GET.get('type', "upcoming_events")
     # print(type)
@@ -50,12 +62,16 @@ def managerdashboard(request):
 
     return render(request, 'dashboard/manager-dashboard.html', context)
 
-def user_dashboard(request):
-    return render(request, "dashboard/user-dashboard.html")
+
+def participent_dashboard(request):
+    return render(request, "dashboard/participent_dashboard.html")
 
 def dashboard(request):
     return render(request, "dashboard/dashboard.html")
 
+
+@login_required
+@permission_required('tasks.add_event', login_url='no-permission')
 def create_events(request):
    
     event_form= EventModelForm()
@@ -81,6 +97,9 @@ def create_events(request):
 
     return render(request, 'dashboard/event-form.html', context)
 
+
+@login_required
+@permission_required('tasks.change_event', login_url='no-permission')
 def update_event(request, id):
     
     event= Event.objects.get(id= id)
@@ -109,41 +128,22 @@ def update_event(request, id):
 
     return render(request, 'dashboard/event-form.html', context)
 
+
+@login_required
+@permission_required('tasks.view_participant', login_url='no-permission')
 def view_participents(request):
-    # events= Event.objects.all()
-    # events= Event.objects.filter(status= "U")
-    # events= Event.objects.filter(schedule= date.today())
-    # events= Event.objects.filter(Q(name__icontains= "in") | Q(status= "P"))
-
-            #  ****** select_related(Foreign key, OnetoOne Field) ************
-
-    # events= Event.objects.select_related("details").all()
-    # events= Event.objects.select_related("category").all()
-    # events= Category.objects.select_related("event_set").all()
-
-            # ******** prefetch_related(reverse Foreign key, ManyToMany Field) **********
-
-    # events= Category.objects.prefetch_related("event_set").all()
-    # events= EventDetails.objects.select_related("events").all()
-    # events= EventDetails.objects.prefetch_related("events").all()
-    # events= Event.objects.prefetch_related("participant").all()
-
-                # Aggregation
-    
-    # total_person= Participant.objects.aggregate(tot_part= Count("id"))
-    # events= Category.objects.annotate(tot_part= Count("event"))
-    # events= Event.objects.prefetch_related("participant").count()
     participents= Participant.objects.all()
     
-
     return render(request , "show_participents.html", {"participents": participents})
 
 
 
 
 
-    
 
+
+@login_required
+@permission_required('tasks.delete_event', login_url='no-permission')
 def delete_event(request, id):
     if request.method == "POST":
         event= Event.objects.get(id= id)

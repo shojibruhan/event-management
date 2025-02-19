@@ -1,0 +1,45 @@
+{% extends "admin/dashboard.html" %}
+{% block content %}
+<div class="w-full mt-8 ml-56">
+    <h2 class="text-2xl font-bold mb-4 text-yellow-200">Groups and Permissions</h2>
+    <div class="overflow-x-auto">
+    <table class="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+        <tr class="bg-gray-100">
+            <th class="border border-gray-300 bg-gray-500 text-gray-100 px-4 py-2">Group Name</th>
+            <th class="border border-gray-300 bg-gray-500 text-gray-100 px-4 py-2">Permissions</th>
+            <th class="border border-gray-300 bg-gray-500 text-gray-100 px-4 py-2">Code Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Example group data -->
+        {% for group in groups %}
+            <tr class="odd:bg-gray-700 even:bg-gray-600 text-white">
+                <td class="border border-gray-300 px-4 py-2 font-medium">
+                    {{group.name}}
+                </td>
+                <td class="border border-gray-300 px-4 py-2">
+                <ul class="list-disc list-inside">
+                    {% for permission in group.permissions.all %}
+                        <li> {{permission.name}}</li>
+                        {% empty %}
+                        <span class="text-yellow-200 italic">No Permission Assigned</span>
+                    {% endfor %}
+                </ul>
+                </td>
+                <td class="border border-gray-300 px-4 py-2">
+                <ul class="list-disc list-inside">
+                    {% for permission in group.permissions.all %}
+                        <li> {{permission.codename}}</li>
+                        {% empty %}
+                        <span class="text-yellow-200 italic">No Permission Assigned</span>
+                    {% endfor %}
+                </ul>
+                </td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock content %}
