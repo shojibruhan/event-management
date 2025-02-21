@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.core.mail import send_mail
+from tasks.models import RSVP
 
 
 @receiver(post_save,  sender= User)
@@ -25,6 +26,14 @@ def send_activation_email(sender, instance, created, **kwargs):
 @receiver(post_save, sender= User)
 def assign_role(sender, instance, created, **kwargs):
     if created:
-        user_groups= Group.objects.get_or_create(name= "User")
+        user_groups, created= Group.objects.get_or_create(name= "Participant")
         instance.groups.add(user_groups)
         instance.save()
+
+@receiver(post_save,  sender= RSVP)
+def send_invitation_mail(sender, instance, created, **kwargs):
+    if created:
+        subject= "Invitation E-mail"
+        message= f"Hello {instance.user.first_name},\n\nYou are invited to the upcoming {instance.event.name}.\n\nThanks."
+        recipient_list= [instance.user.email]
+        send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)

@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{% static 'css/output.css' %}">
 
-    <title>{% block title %}{% endblock title %}</title>
+    <title>Dashboard</title>
 </head>
 <body class="bg-gray-900">
     <!-- Search Bar-->
-    <div class="bg-gray-800 p-4">
+    {% comment %} <div class="bg-gray-800 p-4">
         <div class="flex justify-end items-center">
             
             <form action=" {% url "searched-result" %} " method="POST" class="flex gap-3 items-center">
@@ -31,21 +31,17 @@
               {% endfor %}
             {% endif %}
         </div>
-    </div>
+    </div> {% endcomment %}
     
+      <!-- Nav Bar -->
+    {% include "dashboard_navbar.html" %}
     
-    <!-- Nav Bar -->
-    <div class="flex flex-row h-screen">
-        {% include "dashboard_navbar.html" %}
-        <!-- cart-section -->
-        {% block dashboard-content %}
-
-            {% include "dashboard/event_list.html" %}
-        {% endblock dashboard-content %}
-       
-        
-    </div>
-
+  
+    <main>
+        {% block content %}
+            {% include "admin/user_list.html" %}
+        {% endblock content %}
+    </main>
     
 </body>
 </html>

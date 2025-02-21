@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
-
+from tasks.models import Event, RSVP
+from django.db.models import Q, Count
 
 
 def is_admin(user):
@@ -75,7 +76,7 @@ def admin_dashboard(request):
             user.group_name= user.all_groups[0].name
         else:
             user.group_name= "No Group Assigned"
-    return render(request, "admin/dashboard.html", {"users":users})
+    return render(request, "admin/admin_dashboard.html", {"users":users})
 
 
 @user_passes_test(is_admin, login_url='no-permission')
@@ -114,3 +115,65 @@ def group_list(request):
     groups= Group.objects.prefetch_related('permissions').all()
 
     return render(request, "admin/group_list.html", {"groups": groups})
+
+def events_list(request):
+    type= request.GET.get('type', "upcoming_events")
+    # print(type)
+    
+    base_query= Event.objects.select_related('details').prefetch_related('participant')
+    
+    if type == "upcoming_events":
+        events= base_query.filter(status= "U")
+    elif type == "past_events":
+        events= base_query.filter(status= "P")
+    elif type == "all":
+        events= base_query.all()
+
+    query= request.GET.get('q', " ")
+    # if query:
+    #     search= base_query.filter(name__icontains = query)
+    counts= Event.objects.aggregate(
+        total= Count('id'),
+        upcoming_events= Count('id', filter= Q(status= "U")),
+        past_events= Count('id', filter= Q(status= "P"))
+       
+    )
+   
+    total_participant= User.objects.all().count() 
+
+    context= {
+        "events": events,
+        "counts": counts,
+        "total_participant": total_participant
+    }
+
+    return render(request, "events_list.html", context)
+
+@login_required(login_url='sign-in')
+def rspv_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+
+    if RSVP.objects.filter(user= request.user, event= event).exists():
+        messages.warning(request, f"You already booked this event")
+        return redirect('my-events')
+        
+    
+    RSVP.objects.create(user= request.user, event= event)
+    messages.success(request, "A confirmation mail sent to your inbox!")
+    return redirect('my-events')
+
+@login_required
+def my_events(request):
+    rsvps = RSVP.objects.filter(user=request.user).select_related('event')
+
+    return render(request, "my_events.html", {"rsvps": rsvps})
+
+def is_participant(user):
+    return user.groups.filter(name="Participant").exists() 
+
+
+@user_passes_test(is_participant, login_url='no-permission')
+def participant_dashboard(request):
+    rsvps = RSVP.objects.filter(user=request.user).select_related('event')
+    
+    return render(request, "participant_dashboard.html", {"rsvps": rsvps})

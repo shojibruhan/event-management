@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -8,12 +9,12 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Participant(models.Model):
-    name= models.CharField(max_length=100)
-    email= models.EmailField(unique=True)
+# class Participant(models.Model):
+#     name= models.CharField(max_length=100)
+#     email= models.EmailField(unique=True)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class Event(models.Model):
@@ -30,7 +31,7 @@ class Event(models.Model):
         on_delete=models.CASCADE, 
         default=1
     )
-    participant= models.ManyToManyField(Participant, related_name='events')
+    participant= models.ManyToManyField(User, related_name='rsvp_events')
     name= models.CharField(max_length=250)
     description= models.TextField()
     schedule= models.DateField()
@@ -72,3 +73,11 @@ class EventDetails(models.Model):
     def __str__(self):
         return f"Details for the Events {self.events.name}"
     
+
+class RSVP(models.Model):
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    event= models.ForeignKey(Event, on_delete=models.CASCADE)
+    created_at= models.DateTimeField(auto_now_add= True)
+
+    def __str__(self):
+        return f"{self.user.username} attend to {self.event.name}"

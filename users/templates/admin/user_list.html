@@ -1,3 +1,5 @@
+{% extends "admin/admin_dashboard.html" %}
+{% block content %}
 
 <div class="overflow-auto rounded-lg md:ps-4 pr-4 ml-56">   
     <table class="w-full bg-gray-900 text-white shadow-lg border-separate border-spacing-y-2">
@@ -25,10 +27,7 @@
                     <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
                         <a href="{% url 'assign-role' user.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">Change Role</a>
                         
-                        <form action=" {% url "home" %} " method= "POST">
-                            {% csrf_token %}
-                            <button type="submit" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">C</button>
-                        </form>
+                        
                     </td>
                 </tr>
             {% endfor %}
@@ -37,3 +36,4 @@
         </tbody>
     </table>
 </div>
+{% endblock content %}

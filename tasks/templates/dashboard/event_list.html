@@ -1,5 +1,4 @@
-{% extends "dashboard/dashboard.html" %}
-{% block dashboard-content %}
+
 <div class="flex-auto bg-gray-900 sm:ps-28 md:ps-48">
     <!-- cart items -->
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 mt-24">
@@ -35,7 +34,7 @@
         </a>
         <!-- Total Events -->
         
-        <a href="{% url "manager-dashboard" %}?type=all">
+        <a href="{% url "dashboard" %}?type=all">
             <div class="bg-orange-200 p-6 rounded-lg shadow-sm shadow-white">
                 <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">TOTAL EVENTS</h3>
                     <div class="flex justify-between ">
@@ -65,7 +64,7 @@
             </div>
         </a>
     <!-- UPCOMING Events -->
-    <a href="{% url "manager-dashboard" %}">
+    <a href="{% url "dashboard" %}">
         <div class="bg-yellow-200 p-6 rounded-lg shadow-sm shadow-white">
             <h3 class="text-3xl font-semibold text-indigo-950 mb-16">UPCOMING EVENTS</h3>
                 <div class="flex justify-between ">
@@ -95,7 +94,7 @@
         </div>
     </a>
     <!-- Past Events -->
-    <a href="{% url "manager-dashboard" %}?type=past_events">
+    <a href="{% url "dashboard" %}?type=past_events">
         <div class="bg-blue-200 p-6 rounded-lg shadow-sm shadow-white">
             <h3 class="text-3xl font-semibold text-indigo-950 mb-16 lg:h-16">PAST EVENTS</h3>
                 <div class="flex justify-between ">
@@ -152,12 +151,9 @@
                         <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.participant.all.count}} </td>
                         <td class="whitespace-nowrap text-sm font-medium p-5"> {{event.location}} </td>
                         <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
-                            <a href="{% url "update-events" event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">Edit</a>
+                            <a href="{% url "event-details" event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">View Details</a>
                             
-                            <form action=" {% url "delete-events" event.id %} " method= "POST">
-                                {% csrf_token %}
-                                <button type="submit" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">delete</button>
-                            </form>
+                            
                         </td>
                     </tr>
                 {% endfor %}
@@ -170,4 +166,3 @@
          
 </div>
 
-{% endblock dashboard-content %}

@@ -1,20 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from tasks.forms import EventModelForm, EventDetailsModelForm, ParticipantModelForm
-from tasks.models import Participant, Category, Event, EventDetails
+from tasks.forms import EventModelForm, EventDetailsModelForm
+from tasks.models import Event, RSVP
 from datetime import date
-from django.db.models import Q, Max, Min, Avg, Count
+from django.db.models import Q, Count
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
-from users.views import is_admin
+from users.views import is_admin, is_participant
+from django.contrib.auth.models import User
 
 
 
-def is_manager(user):
-    return user.groups.filter(name="Manager").exists()
+def is_organizer(user):
+    return user.groups.filter(name="Organizer").exists()
 
-def is_participent(user):
-    return user.groups.filter(name="Participent").exists()
 
 
 
@@ -29,8 +27,8 @@ def home(request):
 def events_dashboard(request):
     return render(request, "events.html")
 
-@user_passes_test(is_manager, login_url='no-permission')
-def managerdashboard(request):
+@user_passes_test(is_organizer, login_url='no-permission')
+def organizer_dashboard(request):
     type= request.GET.get('type', "upcoming_events")
     # print(type)
     
@@ -52,7 +50,7 @@ def managerdashboard(request):
        
     )
    
-    total_participant= Participant.objects.all().count()
+    total_participant= User.objects.all().count()
 
     context= {
         "events": events,
@@ -61,7 +59,7 @@ def managerdashboard(request):
     }
 
 
-    return render(request, 'dashboard/event_list.html', context)
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 def participent_dashboard(request):
@@ -93,7 +91,10 @@ def create_events(request):
             messages.success(request, "Events Created Successfully !!!")
 
             return redirect("create-events")
-    context= { 'event_form': event_form, "event_details_form": event_details_form }
+    context= { 
+        'event_form': event_form, 
+        "event_details_form": event_details_form 
+        }
 
 
     return render(request, 'dashboard/event-form.html', context)
@@ -124,7 +125,10 @@ def update_event(request, id):
             messages.success(request, "Events Updated Successfully !!!")
 
             return redirect("update-events", id)
-    context= { 'event_form': event_form, "event_details_form": event_details_form }
+    context= { 
+        'event_form': event_form, 
+        "event_details_form": event_details_form,
+        "event": event}
 
 
     return render(request, 'dashboard/event-form.html', context)
@@ -133,7 +137,7 @@ def update_event(request, id):
 @login_required
 @permission_required('tasks.view_participant', login_url='no-permission')
 def view_participents(request):
-    participents= Participant.objects.all()
+    participents= User.objects.all()
     
     return render(request , "show_participents.html", {"participents": participents})
 
@@ -151,11 +155,11 @@ def delete_event(request, id):
         event.delete()
 
         messages.success(request, "Event Deleted Successfully !!!")
-        return redirect("manager-dashboard")
+        return redirect("events-list")
 
     else:
         messages.error(request, "Something Went Wrong")
-        return redirect("manager-dashboard")
+        return redirect("events-list")
     
 
 
@@ -176,7 +180,7 @@ def search_event(request):
     
  
 def test(request):
-    participents= Participant.objects.all()
+    participents= User.objects.all()
     
 
     return render(request , "test.html", {"participents": participents})
@@ -198,13 +202,16 @@ def event_details(request, event_id):
     return render(request, "event_details.html", {"event": event, "status_choices": status_choices})
 
 
+
+
+
 @login_required
 def dashboard(request):
     if is_admin(request.user):
         return redirect('admin-dashboard')
-    elif is_manager(request.user):
-        return redirect('manager-dashboard')
-    elif is_participent(request.user):
-        return redirect('admin-dashboard')
+    elif is_organizer(request.user):
+        return redirect('organizer-dashboard')
+    elif is_participant(request.user):
+        return redirect('participant-dashboard')
     
     return redirect('no-permission')

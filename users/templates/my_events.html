@@ -1,0 +1,46 @@
+{% extends "admin/admin_dashboard.html" %}
+<div class="mt-10 ml-80 mb-5">
+    {% if messages %}
+            {% for message in messages %}
+            <p class= "px-3 py-2 text-white mb-5 {% if message.tags == 'success' %}bg-green-500 {% elif message.tags == 'warning' %} bg-rose-600 {% endif %} ">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+</div>
+{% block content %}
+<div class="overflow-auto rounded-lg md:ps-4 pr-4 ml-56">   
+    <table class="w-full bg-gray-900 text-white shadow-lg border-separate border-spacing-y-2">
+        <thead class="border-b-2 border-gray-800">
+
+            <tr class="h-12">
+    
+                <th class=" px-4 py-2">Title</th>
+                <th class=" border-gray-800 px-4 py-2">Category</th>
+                <th class=" border-gray-800 px-4 py-2">Date</th>
+                <th class=" border-gray-800 px-4 py-2">Participent</th>
+                <th class=" border-gray-800 px-4 py-2">Location</th>
+                <th class=" border-gray-800 px-4 py-2">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-start divide-y divide-white ">
+            {% for rsvp in rsvps %}
+                <tr class="odd:bg-gray-700 even:bg-gray-600 h-12 text-white ">
+                    <td class="whitespace-nowrap text-sm font-medium  p-5"> 
+                        <a href="{% url "event-details" rsvp.event.id %}"> {{rsvp.event.name}} </a>    
+                    </td>
+                    <td class="whitespace-nowrap text-sm font-medium p-5"> {{rsvp.event.details.get_types_display}} </td>
+                    <td class="whitespace-nowrap text-sm font-medium p-5"> {{rsvp.event.schedule}} </td>
+                    <td class="whitespace-nowrap text-sm font-medium p-5"> {{rsvp.event.participant.all.count}} </td>
+                    <td class="whitespace-nowrap text-sm font-medium p-5"> {{rsvp.event.location}} </td>
+                    <td class="whitespace-nowrap text-sm font-medium p-5 flex space-x-3">
+                        <a href="{% url "event-details" rsvp.event.id %}" class="p-2 text-xs font-bold uppercase text-white bg-blue-700 rounded-lg tracking-widest shadow-lg hover:bg-blue-500 hover:p-2">View Details</a>
+                        
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+          
+            
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

@@ -1,5 +1,6 @@
 from django import forms
-from tasks.models import Event, EventDetails, Participant, Category
+from tasks.models import Event, EventDetails, Category
+from django.contrib.auth.models import User
 
 
 class StyleForMixin:
@@ -54,6 +55,9 @@ class EventDetailsModelForm(StyleForMixin, forms.ModelForm):
     class Meta:
         model = EventDetails
         fields = ['types', 'asset']
+        widgets= {
+            'asset': forms.ClearableFileInput()
+        }
 
     
 
@@ -61,7 +65,7 @@ class ParticipantModelForm(StyleForMixin, forms.ModelForm):
     """Form for Participant model."""
 
     class Meta:
-        model = Participant
-        fields = ['name', 'email']
+        model = User
+        fields = ['username', 'email']
 
    
