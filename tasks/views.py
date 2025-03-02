@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
 from users.views import is_admin, is_participant
 from django.contrib.auth.models import User
+from django.views import View
+from django.utils.decorators import method_decorator
 
 
 
@@ -98,7 +100,38 @@ def create_events(request):
 
 
     return render(request, 'dashboard/event-form.html', context)
+create_events_decorator= [login_required, permission_required('tasks.add_event', login_url='no-permission')]
+@method_decorator(create_events_decorator, name="dispatch")
+class CreateEvents(View):
+    template_name= "dashboard/event-form.html"
 
+    def get(self, request, *args, **kwargs):
+        event_form= EventModelForm()
+        event_details_form= EventDetailsModelForm()
+
+        context= { 
+        'event_form': event_form, 
+        "event_details_form": event_details_form 
+        }
+
+
+        return render(request, self.template_name, context)
+
+
+
+    def post(self, request, *args, **kwargs):
+        event_form= EventModelForm(request.POST)
+        event_details_form= EventDetailsModelForm(request.POST, request.FILES)
+        if event_form.is_valid() and event_details_form.is_valid():
+            event= event_form.save()
+            event_details= event_details_form.save(commit=False)
+            event_details.events= event
+            event_details.save()
+
+            
+            messages.success(request, "Events Created Successfully !!!")
+
+            return redirect("create-events")
 
 @login_required
 @permission_required('tasks.change_event', login_url='no-permission')
