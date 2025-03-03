@@ -1,0 +1,105 @@
+{% load static %}
+{% load custom_filters %}   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <title>Profile</title>
+</head>
+
+    
+  <body class="bg-gray-900 text-yellow-300">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-52 bg-gray-800 shadow-md text-bold uppercase">
+        <div class="p-4">
+          <h2 class="text-xl font-semibold text-gray-800">Menu</h2>
+        </div>
+        <nav class="mt-6">
+          <a
+            href="{% url "home" %}"
+            class="block py-2 px-4 text-gray-100  hover:bg-gray-300"
+            >Home</a
+          >
+          <a
+            href="{% url "dashboard" %}"
+            class="block py-2 px-4 text-gray-100  hover:bg-gray-300"
+            >Dashboard</a
+          >
+          <a href="#" class="block py-2 px-4 text-gray-100 hover:bg-gray-200"
+            >Edit Profile</a
+          >
+          <a href="{% url "password-change" %}" class="block py-2 px-4 text-gray-100 hover:bg-gray-200"
+            >Change Password</a
+          >
+            <form action="{% url "sign-out" %}" method="POST">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                <button type="submit" class="text-gray-100 ml-5">LOG OUT</button>
+            
+                {% endif %}
+            </form>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-8">
+        <h1 class="text-3xl font-bold mb-8">User Profile</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <div class="flex items-center mb-6">
+            <img
+              src="https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png"
+              alt="User Avatar"
+              class="w-24 h-24 rounded-full object-cover mr-6"
+            />
+            <div>
+              <h2 class="text-2xl font-semibold text-gray-800"> {{name}} </h2>
+              <p class="text-gray-600">Software Developer</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">
+                Personal Information
+              </h3>
+              <p class="text-gray-600">
+                <span class="font-medium">Email:</span> {{email}}
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Username:</span> {{username}}
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Location:</span> New York, USA
+              </p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">
+                Account Information
+              </h3>
+              <p class="text-gray-600">
+                <span class="font-medium">Member Since:</span> {{member_since|date:"F j, Y"}}
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Last Login:</span> {{last_login|humanized_date }}
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Bio</h3>
+            <p class="text-gray-600">
+              Passionate software developer with 5 years of experience in web
+              technologies. Loves to create user-friendly and efficient
+              applications. In free time, enjoys hiking and reading tech blogs.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+
+</html>
