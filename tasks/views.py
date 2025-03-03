@@ -9,6 +9,10 @@ from users.views import is_admin, is_participant
 from django.contrib.auth.models import User
 from django.views import View
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic.base import ContextMixin
+from django.views.generic import DetailView, UpdateView
+
 
 
 
@@ -100,21 +104,22 @@ def create_events(request):
 
 
     return render(request, 'dashboard/event-form.html', context)
-create_events_decorator= [login_required, permission_required('tasks.add_event', login_url='no-permission')]
-@method_decorator(create_events_decorator, name="dispatch")
-class CreateEvents(View):
+# create_events_decorator= [login_required, permission_required('tasks.add_event', login_url='no-permission')]
+# @method_decorator(create_events_decorator, name="dispatch")
+class CreateEvents(ContextMixin, LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required="tasks.add_event"
+    login_url= 'sign-in'
     template_name= "dashboard/event-form.html"
 
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['event_form']= kwargs.get('event_form', EventModelForm())
+        context['event_details_form']= kwargs.get('event_details_form', EventDetailsModelForm())
+
+        return context
+
     def get(self, request, *args, **kwargs):
-        event_form= EventModelForm()
-        event_details_form= EventDetailsModelForm()
-
-        context= { 
-        'event_form': event_form, 
-        "event_details_form": event_details_form 
-        }
-
-
+        context= self.get_context_data()
         return render(request, self.template_name, context)
 
 
@@ -130,8 +135,9 @@ class CreateEvents(View):
 
             
             messages.success(request, "Events Created Successfully !!!")
+            context= self.get_context_data(event_form= event_form, event_details_form= event_details_form)
 
-            return redirect("create-events")
+            return render(request, self.template_name, context)
 
 @login_required
 @permission_required('tasks.change_event', login_url='no-permission')
@@ -165,6 +171,44 @@ def update_event(request, id):
 
 
     return render(request, 'dashboard/event-form.html', context)
+
+
+class UpdateEvent(UpdateView):
+    model= Event
+    form_class= EventModelForm
+    template_name= 'dashboard/event-form.html'
+    pk_url_kwarg='id'
+    context_object_name= 'event'
+
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        event= self.get_object()
+        context["event_form"]= self.get_form()
+
+        if hasattr(self.object, 'details') and self.object.details:
+            context['event_details_form']= EventDetailsModelForm(instance= self.object.details)
+        else:
+            context['event_details_form']= EventDetailsModelForm()
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object= self.get_object()
+        event_form= EventModelForm(request.POST, instance= self.object)
+        event_details_form= EventDetailsModelForm(request.POST, instance= getattr(self.object, 'details', None))
+
+        if event_form.is_valid() and event_details_form.is_valid():
+            event= event_form.save()
+            event_details= event_details_form.save(commit=False)
+            event_details.event= event
+            event_details_form.save()
+
+            
+            messages.success(request, "Events Updated Successfully !!!")
+
+            return redirect("update-events", self.object.id)
+        return redirect("update-events", self.object.id)
+
 
 
 @login_required
@@ -234,6 +278,25 @@ def event_details(request, event_id):
 
     return render(request, "event_details.html", {"event": event, "status_choices": status_choices})
 
+class EventDetails(DetailView):
+    model= Event
+    template_name= "event_details.html"
+    pk_url_kwarg= "event_id"
+    context_object_name= 'event'
+
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['status_choices']= Event.STATUS_CHOICES
+
+        return context
+    def post(self, request, *args, **kwargs):
+        event= self.get_object()
+        selected_status= request.POST.get('event_status')
+        event.status= selected_status
+        event.save()
+
+        return redirect('event-details', event.id)
+    
 
 
 
