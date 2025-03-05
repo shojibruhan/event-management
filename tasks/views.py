@@ -6,12 +6,14 @@ from django.db.models import Q, Count
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
 from users.views import is_admin, is_participant
-from django.contrib.auth.models import User
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic.base import ContextMixin
 from django.views.generic import DetailView, UpdateView
+from django.contrib.auth import get_user_model
+
+User= get_user_model()
 
 
 
