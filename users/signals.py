@@ -6,6 +6,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.core.mail import send_mail
 from tasks.models import RSVP
+from users.models import UserProfile
 
 
 @receiver(post_save,  sender= User)
@@ -37,3 +38,8 @@ def send_invitation_mail(sender, instance, created, **kwargs):
         message= f"Hello {instance.user.first_name},\n\nYou are invited to the upcoming {instance.event.name}.\n\nThanks."
         recipient_list= [instance.user.email]
         send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+
+@receiver(post_save, sender= User)
+def create_or_update_userprofile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user= instance)
