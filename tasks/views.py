@@ -10,8 +10,9 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic.base import ContextMixin
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, DeleteView, ListView
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
 
 User= get_user_model()
 
@@ -220,7 +221,12 @@ def view_participents(request):
     
     return render(request , "show_participents.html", {"participents": participents})
 
-
+view_participents_decorator= [login_required, permission_required('tasks.view_participant', login_url='no-permission')]
+@method_decorator(view_participents_decorator,name='dispatch')
+class ParticipentsList(ListView):
+    model= User
+    template_name= "show_participents.html"
+    context_object_name= "participents"
 
 
 
@@ -239,8 +245,22 @@ def delete_event(request, id):
     else:
         messages.error(request, "Something Went Wrong")
         return redirect("events-list")
-    
 
+delete_event_decorator=[login_required, permission_required('tasks.delete_event', login_url='no-permission')]
+@method_decorator(delete_event_decorator, name='dispatch')
+class DeleteEvent(DeleteView):
+    model= Event
+    pk_url_kwarg= 'id'
+    success_url = reverse_lazy("events-list")
+
+    def post(self, request, *args, **kwargs):
+        self.object= self.get_object()
+        self.object.delete()
+
+        messages.success(request, "Event Deleted Successfully !!!")
+        return redirect("events-list")
+
+        
 
 def search_event(request):
     if request.method == "POST":
