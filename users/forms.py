@@ -1,8 +1,11 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.models import Group, Permission
 from tasks.forms import StyleForMixin
+from users.models import CustomUser
+from django.contrib.auth import get_user_model
 
+User= get_user_model()
 
 class RegisterUserForm(StyleForMixin, forms.ModelForm):
     
@@ -11,7 +14,7 @@ class RegisterUserForm(StyleForMixin, forms.ModelForm):
     class Meta:
         model= User
         fields= ['username', 'first_name', 'last_name', 'email', 'password', 'confirm_password']
-        # errors= []
+        
 
     def clean_password(self):
         password= self.cleaned_data.get('password')
@@ -65,3 +68,18 @@ class CreateGroupForm(StyleForMixin, forms.ModelForm):
     class Meta:
         model= Group
         fields= ['name', 'permissions']
+
+
+class CustomPasswordChangeForm(StyleForMixin, PasswordChangeForm):
+    pass
+
+class CustomPasswordResetForm(StyleForMixin, PasswordResetForm):
+    pass
+
+class CustomSetPasswordForm(StyleForMixin, SetPasswordForm):
+    pass
+
+class EditProfileForm(StyleForMixin, forms.ModelForm):
+    class Meta:
+        model= CustomUser
+        fields= ['first_name', 'last_name', 'email', 'mobile', 'profile_image', 'bio']

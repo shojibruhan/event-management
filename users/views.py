@@ -1,15 +1,22 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User, Group
-from users.forms import RegisterUserForm, LogInForm, AssignRoleForm, CreateGroupForm
+from django.contrib.auth.models import Group
+from users.forms import RegisterUserForm, LogInForm, AssignRoleForm, CreateGroupForm, CustomPasswordChangeForm, CustomPasswordResetForm, CustomSetPasswordForm, EditProfileForm
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
 from tasks.models import Event, RSVP
 from django.db.models import Q, Count
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.views.generic import TemplateView, UpdateView
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+from users.models import CustomUser
+from django.contrib.auth import get_user_model
 
+User= get_user_model()
 
 def is_admin(user):
     return user.groups.filter(name="Admin").exists()
@@ -45,6 +52,13 @@ def sign_in(request):
            return redirect('home')
        
     return render(request, "registration/login.html", {"form": form})
+class CustomLogIn(LoginView):
+    form_class= LogInForm
+    
+    
+    def get_success_url(self):
+        next_url= self.request.GET.get('next')
+        return next_url if next_url else super().get_success_url()
 
 @login_required
 def sign_out(request):
@@ -177,3 +191,68 @@ def participant_dashboard(request):
     rsvps = RSVP.objects.filter(user=request.user).select_related('event')
     
     return render(request, "participant_dashboard.html", {"rsvps": rsvps})
+
+@method_decorator(login_required, name='dispatch')
+class ProfileView(TemplateView):
+    template_name= 'accounts/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+
+        user= self.request.user
+        context['username']= user.username
+        context['email']= user.email
+        context['bio']= user.bio
+        context['profile_image']= user.profile_image
+        context['mobile']= user.mobile
+        context['name']= user.get_full_name()
+        context['member_since']= user.date_joined
+        context['last_login']= user.last_login
+
+        return context
+    
+class ChangePassword(PasswordChangeView):
+    template_name= 'accounts/password_change.html'
+    form_class= CustomPasswordChangeForm
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class= CustomPasswordResetForm
+    template_name= 'registration/password_reset.html'
+    success_url= reverse_lazy('sign-in')
+    html_email_template_name= 'registration/reset_email.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password reset form is sent to your mail.")
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['protocol']= 'https' if self.request.is_secure() else 'http'
+        context['domain']= self.request.get_host()
+
+        return context
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class= CustomSetPasswordForm
+    template_name= 'registration/password_reset.html'
+    success_url= reverse_lazy('sign-in')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password reset Successfully.")
+        return super().form_valid(form)
+ 
+
+class EditProfileView(UpdateView):
+    model= User
+    form_class= EditProfileForm
+    template_name= 'accounts/update_profile.html'
+
+    def get_object(self):
+        return self.request.user
+    
+    
+    
+    def form_valid(self, form):
+        form.save(commit=True)
+        return redirect('profile')

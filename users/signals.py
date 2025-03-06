@@ -1,11 +1,14 @@
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save, m2m_changed
 from django.core.mail import send_mail
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.core.mail import send_mail
 from tasks.models import RSVP
+from django.contrib.auth import get_user_model
+
+User= get_user_model()
 
 
 @receiver(post_save,  sender= User)
@@ -37,3 +40,5 @@ def send_invitation_mail(sender, instance, created, **kwargs):
         message= f"Hello {instance.user.first_name},\n\nYou are invited to the upcoming {instance.event.name}.\n\nThanks."
         recipient_list= [instance.user.email]
         send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+
+
