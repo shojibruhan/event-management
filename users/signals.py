@@ -42,10 +42,3 @@ def send_invitation_mail(sender, instance, created, **kwargs):
         send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
 
 
-'''
-@receiver(post_save, sender= User)
-def create_or_update_userprofile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user= instance)
-
-'''

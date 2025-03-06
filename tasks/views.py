@@ -39,7 +39,6 @@ def events_dashboard(request):
 @user_passes_test(is_organizer, login_url='no-permission')
 def organizer_dashboard(request):
     type= request.GET.get('type', "upcoming_events")
-    # print(type)
     
     base_query= Event.objects.select_related('details').prefetch_related('participant')
     if type == "upcoming_events":
@@ -50,8 +49,7 @@ def organizer_dashboard(request):
         events= base_query.all()
 
     query= request.GET.get('q', " ")
-    # if query:
-    #     search= base_query.filter(name__icontains = query)
+   
     counts= Event.objects.aggregate(
         total= Count('id'),
         upcoming_events= Count('id', filter= Q(status= "U")),
@@ -107,8 +105,7 @@ def create_events(request):
 
 
     return render(request, 'dashboard/event-form.html', context)
-# create_events_decorator= [login_required, permission_required('tasks.add_event', login_url='no-permission')]
-# @method_decorator(create_events_decorator, name="dispatch")
+
 class CreateEvents(ContextMixin, LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required="tasks.add_event"
     login_url= 'sign-in'

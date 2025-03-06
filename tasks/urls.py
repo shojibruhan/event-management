@@ -4,8 +4,7 @@ from core.views import home
 
 urlpatterns = [
     
-    # path("", home, name="home"),
-    # path("events-dashboard/", search_event, name='events-dashboard'),
+   
     path("searched-result/", search_event, name='searched-result'),
     path("organizer-dashboard/", organizer_dashboard, name='organizer-dashboard'),
     path("dashboard/", dashboard, name='dashboard'),
